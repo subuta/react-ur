@@ -55,14 +55,28 @@ config.module
   .use('babel')
   .loader('babel-loader')
   .options({
+    cacheDirectory: true,
     presets: [
-      ['@babel/env', {
-        'targets': [
-          'last 1 version',
-          '> 1%'
-        ],
-        'useBuiltIns': 'entry',
-        'modules': false
+      '@babel/preset-react',
+      [
+        '@babel/preset-env',
+        {
+          'targets': [
+            'last 1 version',
+            '> 1%'
+          ],
+          'useBuiltIns': 'entry',
+          'modules': false
+        }
+      ]
+    ],
+    plugins: [
+      '@babel/plugin-proposal-object-rest-spread',
+      '@babel/plugin-syntax-dynamic-import',
+      'loadable-components/babel',
+      "react-hot-loader/babel",
+      ['babel-plugin-module-resolver', {
+        'root': './'
       }]
     ]
   })

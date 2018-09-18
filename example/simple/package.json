@@ -23,16 +23,20 @@
   },
   "homepage": "https://github.com/subuta/play-with-rollup#readme",
   "dependencies": {
+    "isomorphic-unfetch": "^3.0.0",
     "koa": "^2.5.3",
     "koa-body": "^4.0.4",
     "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
+    "loadable-components": "^2.2.3",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
     "react-helmet": "^5.2.0",
-    "react-hot-loader": "^4.3.8",
-    "react-router-dom": "^4.3.1"
+    "react-hot-loader": "^4.3.7",
+    "react-router-dom": "^4.3.1",
+    "recompose": "^0.30.0",
+    "waait": "^1.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
@@ -43,6 +47,8 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
     "@babel/runtime": "^7.0.0",
+    "babel-loader": "^8.0.2",
+    "babel-plugin-dynamic-import-node": "^2.1.0",
     "babel-plugin-module-resolver": "^3.1.1",
     "clear-module": "^3.0.0",
     "esm": "^3.0.83",
@@ -53,8 +59,7 @@
     "rollup-plugin-node-resolve": "^3.4.0",
     "sane": "^3.0.0",
     "webpack": "^4.19.0",
-    "babel-loader": "^8.0.2",
-    "webpack-dev-server": "^3.1.8",
-    "webpack-cli": "^3.1.0"
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.8"
   }
 }

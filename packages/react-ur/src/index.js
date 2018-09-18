@@ -5,8 +5,16 @@ import * as components from './components'
 import renderClient from './renderClient'
 import asyncRenderServer from './asyncRenderServer'
 
+import {
+  wrapLoadable,
+  renderLoadable
+} from './utils/loadable'
+
 export {
   components,
   renderClient,
-  asyncRenderServer
+  asyncRenderServer,
+
+  wrapLoadable,
+  renderLoadable
 }

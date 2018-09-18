@@ -8,7 +8,7 @@ import {
   renderToStaticMarkup
 } from 'react-dom/server'
 
-import _ from 'lodash'
+import { getLoadableState } from 'loadable-components/server'
 
 import getPath from 'src/utils/getPath'
 
@@ -22,11 +22,11 @@ export default async (url, options = {}) => {
     url
   }
 
-  const app = (
-    <StaticRouter context={{ ctx }} location={getPath(ctx)}>
-      <App />
-    </StaticRouter>
-  )
+  const app = options.app
+
+  // // Wait for loadable-components.
+  // const loadableState = await getLoadableState(app)
+  const loadableState = options.loadableState
 
   const html = renderToString(app)
 
@@ -43,8 +43,12 @@ export default async (url, options = {}) => {
     </>
   )
 
+  // Script tag for loadable-components.
+  const loadableStateScript = loadableState.getScriptElement()
+
   const bodyScripts = (
     <>
+      {loadableStateScript}
     </>
   )
 

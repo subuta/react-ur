@@ -17,6 +17,8 @@ export default {
         'react-helmet': 'reactHelmet',
         'react-router-dom': 'reactRouterDom',
         'react-hot-loader': 'reactHotLoader',
+        'loadable-components': 'loadableComponents',
+        'loadable-components/server': 'loadableComponentsServer',
       }
     }
   ],
