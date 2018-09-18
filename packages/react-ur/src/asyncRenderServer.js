@@ -8,25 +8,25 @@ import {
   renderToStaticMarkup
 } from 'react-dom/server'
 
-import { getLoadableState } from 'loadable-components/server'
-
 import getPath from 'src/utils/getPath'
 
 import * as components from 'src/components'
 
-const { DefaultApp: App, DefaultDocument: Document } = components
+const { DefaultDocument: Document } = components
 
 export default async (url, options = {}) => {
+  const App = options.App || components.DefaultApp
+
   // Common context that will shared between modules while rendering.
   const ctx = {
     url
   }
 
-  const app = options.app
-
-  // // Wait for loadable-components.
-  // const loadableState = await getLoadableState(app)
-  const loadableState = options.loadableState
+  const app = (
+    <StaticRouter context={{ ctx }} location={getPath(ctx)}>
+      <App options={options} />
+    </StaticRouter>
+  )
 
   const html = renderToString(app)
 
@@ -44,11 +44,9 @@ export default async (url, options = {}) => {
   )
 
   // Script tag for loadable-components.
-  const loadableStateScript = loadableState.getScriptElement()
 
   const bodyScripts = (
     <>
-      {loadableStateScript}
     </>
   )
 

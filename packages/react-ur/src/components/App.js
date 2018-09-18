@@ -1,25 +1,22 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import { Switch, Route } from 'react-router-dom'
-import _ from 'lodash'
+import { hot } from 'react-hot-loader'
+// import { Switch, Route } from 'react-router-dom'
+// import _ from 'lodash'
 
-import Default404 from './404'
+import Counter from './Counter'
+// import Default404 from './404'
 
-export default ({ options = {} }) => {
-  const { Pages } = options
-
+export default hot(module)(({ options = {} }) => {
   return (
     <>
       <Helmet>
         <title>React SSR Example</title>
       </Helmet>
 
-      <Switch>
-        {_.map(Pages, (Component, path) => (
-          <Route exact key={path} path={path} component={Component} />
-        ))}
-        <Route path='*' component={Default404} />
-      </Switch>
+      <div>Foo!</div>
+
+      <Counter />
     </>
   )
-}
+})
