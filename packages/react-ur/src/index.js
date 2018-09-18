@@ -1,7 +1,9 @@
 import * as components from './components'
-import { render } from './client'
+import renderClient from './renderClient'
+import asyncRenderServer from './asyncRenderServer'
 
 export {
-  render,
-  components
+  components,
+  renderClient,
+  asyncRenderServer
 }

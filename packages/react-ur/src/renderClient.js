@@ -13,5 +13,5 @@ export default (selector = '#app') => {
     </BrowserRouter>
   )
 
-  ReactDOM.render(app, document.querySelector(selector))
+  ReactDOM.hydrate(app, document.querySelector(selector))
 }

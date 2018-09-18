@@ -13,6 +13,7 @@ export default {
       globals: {
         'react': 'React',
         'react-dom': 'ReactDOM',
+        'react-dom/server': 'ReactDOMServer',
         'react-helmet': 'reactHelmet',
         'react-router-dom': 'reactRouterDom',
         'react-hot-loader': 'reactHotLoader',
@@ -29,6 +30,10 @@ export default {
       namedExports: {
         'react-hot-loader': [
           'hot'
+        ],
+        'react-dom/server': [
+          'renderToString',
+          'renderToStaticMarkup'
         ]
       }
     })
