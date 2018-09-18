@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build:server": "babel src/server --out-dir dist/server",
+    "build:client": "NODE_ENV=production webpack --silent",
+    "build": "run-p build:server build:client",
     "serve": "run-p serve:server serve:client",
     "serve:server": "node ./src/server/index.js",
     "serve:client": "webpack-dev-server",

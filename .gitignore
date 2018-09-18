@@ -1,4 +1,5 @@
 node_modules
 dist/
+public/
 packages/react-ur/index.js
 packages/react-ur/server.js
