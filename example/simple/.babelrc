@@ -11,9 +11,10 @@
     ]
   ],
   "plugins": [
+    "babel-plugin-dynamic-import-node",
     "@babel/plugin-proposal-object-rest-spread",
     "@babel/plugin-syntax-dynamic-import",
-    "babel-plugin-dynamic-import-node",
+    "react-loadable/babel",
     ["babel-plugin-module-resolver", {
       "root": "./"
     }]

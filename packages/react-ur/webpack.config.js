@@ -11,6 +11,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const { ReactLoadablePlugin } = require('react-loadable/webpack')
 
 const {
   ROOT_DIR,
@@ -38,6 +39,7 @@ config
   .output
   .path(PUBLIC_DIR)
   .publicPath('/')
+  .chunkFilename('[name].js')
   .filename('[name].bundle.js')
 
 // Add modules dir
@@ -55,6 +57,7 @@ config.module
   .use('babel')
   .loader('babel-loader')
   .options({
+    babelrc: false,
     cacheDirectory: true,
     presets: [
       '@babel/preset-react',
@@ -71,9 +74,10 @@ config.module
       ]
     ],
     plugins: [
-      "react-hot-loader/babel",
-      '@babel/plugin-proposal-object-rest-spread',
+      'react-hot-loader/babel',
+      "react-loadable/babel",
       '@babel/plugin-syntax-dynamic-import',
+      '@babel/plugin-proposal-object-rest-spread',
       ['babel-plugin-module-resolver', {
         'root': './'
       }]
@@ -115,9 +119,20 @@ config
     beforeEmit: true
   }])
 
+config
+  .plugin('loadable')
+  .use(ReactLoadablePlugin, [{
+    filename: './dist/react-loadable.json',
+  }])
+
 // Set webpack optimization option.
 config.optimization
   .noEmitOnErrors(true)
+
+// Mock nodejs-only modules
+config.node
+  .set('fs', 'empty')
+  .set('path', 'empty')
 
 // Dev-only setting
 config

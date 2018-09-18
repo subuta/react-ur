@@ -4,7 +4,7 @@
   "description": "Example setup for various Rollup module(es/umd/cjs) type with babel(server-side) and webpack(client-side)",
   "main": "index.js",
   "scripts": {
-    "build:server": "babel src/server --out-dir dist/server",
+    "build:server": "babel src --out-dir dist",
     "build:client": "NODE_ENV=production webpack --silent",
     "build": "run-p build:server build:client",
     "serve": "run-p serve:server serve:client",
@@ -33,6 +33,7 @@
     "react-dom": "^16.5.1",
     "react-helmet": "^5.2.0",
     "react-hot-loader": "^4.3.7",
+    "react-loadable": "^5.5.0",
     "react-router-dom": "^4.3.1",
     "recompose": "^0.30.0",
     "waait": "^1.0.2"
