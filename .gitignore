@@ -1,3 +1,4 @@
 node_modules
 dist/
 packages/react-ur/index.js
+packages/react-ur/server.js
