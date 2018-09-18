@@ -1,7 +1,6 @@
 import React from 'react' // eslint-disable-line
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
-import Loadable from 'react-loadable'
 
 import * as components from 'src/components'
 
