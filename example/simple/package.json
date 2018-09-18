@@ -10,7 +10,7 @@
     "serve": "run-p serve:server serve:client",
     "serve:server": "node ./src/server/index.js",
     "serve:client": "webpack-dev-server",
-    "servep:server": "NODE_PATH=./ NODE_ENV=production node ./dist/server/index.js"
+    "servep": "NODE_PATH=./ NODE_ENV=production node ./dist/server/index.js"
   },
   "repository": {
     "type": "git",
