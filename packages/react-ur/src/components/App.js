@@ -7,16 +7,22 @@ import { hot } from 'react-hot-loader'
 import Counter from './Counter'
 // import Default404 from './404'
 
-export default hot(module)(({ options = {} }) => {
+const App = ({ children }) => {
   return (
     <>
       <Helmet>
         <title>React SSR Example</title>
       </Helmet>
 
-      <div>Foo!</div>
+      <div style={{ background: '#eebdbd', padding: 8, margin: 8 }}>
+        <h1>[react-ur]Hello world!</h1>
 
-      <Counter />
+        <Counter />
+      </div>
+
+      {children}
     </>
   )
-})
+}
+
+export default hot(module)(App)

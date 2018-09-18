@@ -7,9 +7,13 @@ import * as components from 'src/components'
 export default async (selector = '#app', options = {}) => {
   const App = options.App || components.DefaultApp
 
+  const Pages = options.Pages || null
+
   const app = (
     <BrowserRouter>
-      <App options={options} />
+      <App>
+        <Pages />
+      </App>
     </BrowserRouter>
   )
 

@@ -71,9 +71,9 @@ config.module
       ]
     ],
     plugins: [
+      "react-hot-loader/babel",
       '@babel/plugin-proposal-object-rest-spread',
       '@babel/plugin-syntax-dynamic-import',
-      "react-hot-loader/babel",
       ['babel-plugin-module-resolver', {
         'root': './'
       }]

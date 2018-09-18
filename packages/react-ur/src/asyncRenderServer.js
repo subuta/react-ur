@@ -17,6 +17,8 @@ const { DefaultDocument: Document } = components
 export default async (url, options = {}) => {
   const App = options.App || components.DefaultApp
 
+  const Pages = options.Pages || null
+
   // Common context that will shared between modules while rendering.
   const ctx = {
     url
@@ -24,7 +26,9 @@ export default async (url, options = {}) => {
 
   const app = (
     <StaticRouter context={{ ctx }} location={getPath(ctx)}>
-      <App options={options} />
+      <App>
+        <Pages />
+      </App>
     </StaticRouter>
   )
 
