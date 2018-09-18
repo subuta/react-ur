@@ -1,14 +1,17 @@
 import React from 'react' // eslint-disable-line
 import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 import { components } from 'react-ur'
 
 console.log('components =', components)
 
-const { App } = components
+const { DefaultApp: App } = components
 
 const app = (
-  <App />
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 )
 
 console.log('Render loaded react component(via umd)')
