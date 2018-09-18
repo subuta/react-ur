@@ -58,7 +58,6 @@ config.module
   .loader('babel-loader')
   .options({
     babelrc: false,
-    cacheDirectory: true,
     presets: [
       '@babel/preset-react',
       [
