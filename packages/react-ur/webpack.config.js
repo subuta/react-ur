@@ -45,9 +45,6 @@ config.resolve.modules
   .add('node_modules')
   .add(ROOT_DIR)
 
-// Load and use `.babelrc.web`
-const babelrc = JSON.parse(fs.readFileSync(path.resolve(ROOT_DIR, '.babelrc.web')))
-
 // Add babel-loader for JS.
 config.module
   .rule('babel')
@@ -58,8 +55,16 @@ config.module
   .use('babel')
   .loader('babel-loader')
   .options({
-    babelrc: false,
-    ...babelrc
+    presets: [
+      ['@babel/env', {
+        'targets': [
+          'last 1 version',
+          '> 1%'
+        ],
+        'useBuiltIns': 'entry',
+        'modules': false
+      }]
+    ]
   })
 
 config.devServer
