@@ -5,6 +5,9 @@ import external from 'rollup-plugin-peer-deps-external'
 
 export default {
   input: 'src/index.js',
+  external: [
+    'fs'
+  ],
   output: [
     {
       file: 'dist/index.js',
@@ -17,8 +20,10 @@ export default {
         'react-helmet': 'reactHelmet',
         'react-router-dom': 'reactRouterDom',
         'react-hot-loader': 'reactHotLoader',
-        'loadable-components': 'loadableComponents',
-        'loadable-components/server': 'loadableComponentsServer',
+        'recompose': 'recompose',
+        'react-loadable': 'Loadable',
+        'react-loadable/webpack': 'LoadableWebpack',
+        'fs': 'fs'
       }
     }
   ],
