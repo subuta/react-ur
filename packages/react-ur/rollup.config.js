@@ -22,9 +22,7 @@ export default {
   ],
   plugins: [
     external(),
-    babel({
-      exclude: 'node_modules/**'
-    }),
+    babel(),
     resolve(),
     commonjs({
       namedExports: {

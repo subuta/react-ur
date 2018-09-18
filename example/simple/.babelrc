@@ -16,14 +16,5 @@
     ["babel-plugin-module-resolver", {
       "root": "./"
     }]
-  ],
-  "env": {
-    "production": {
-      "plugins": [
-        ["babel-plugin-module-resolver", {
-          "root": "./"
-        }]
-      ]
-    }
-  }
+  ]
 }

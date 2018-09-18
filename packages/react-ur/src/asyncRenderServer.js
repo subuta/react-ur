@@ -16,7 +16,7 @@ import * as components from 'src/components'
 
 const { DefaultApp: App, DefaultDocument: Document } = components
 
-export default (url, options = {}) => {
+export default async (url, options = {}) => {
   // Common context that will shared between modules while rendering.
   const ctx = {
     url
