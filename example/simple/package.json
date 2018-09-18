@@ -1,0 +1,47 @@
+{
+  "name": "play-with-rollup",
+  "version": "1.0.0",
+  "description": "Example setup for various Rollup module(es/umd/cjs) type with babel(server-side) and webpack(client-side)",
+  "main": "index.js",
+  "scripts": {
+    "build:server": "babel src/server --out-dir dist/server",
+    "serve:server": "node ./src/server/index.js",
+    "servep:server": "NODE_PATH=./ NODE_ENV=production node ./dist/server/index.js",
+    "serve:client": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/subuta/play-with-rollup.git"
+  },
+  "author": "subuta <shunta.3110@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/subuta/play-with-rollup/issues"
+  },
+  "homepage": "https://github.com/subuta/play-with-rollup#readme",
+  "dependencies": {
+    "react": "^16.5.1",
+    "react-dom": "^16.5.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "babel-loader": "^8.0.2",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "esm": "^3.0.83",
+    "rollup": "^0.66.0",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "^9.1.6",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "webpack": "^4.19.0",
+    "webpack-chain": "^4.11.0",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.8",
+    "webpack-hot-middleware": "^2.24.0"
+  }
+}
