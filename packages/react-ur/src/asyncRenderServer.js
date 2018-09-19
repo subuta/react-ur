@@ -17,7 +17,7 @@ import { isBrowser } from 'src/utils/env'
 
 import * as components from 'src/components'
 
-const { DefaultDocument: Document } = components
+const { DefaultDocument: Document, DefaultApp: App } = components
 
 let stats = {}
 if (!isBrowser) {
@@ -25,9 +25,7 @@ if (!isBrowser) {
 }
 
 export default async (url, options = {}) => {
-  const App = options.App || components.DefaultApp
-
-  const Pages = options.Pages || null
+  await Loadable.preloadAll()
 
   // Common context that will shared between modules while rendering.
   const ctx = {
@@ -39,9 +37,7 @@ export default async (url, options = {}) => {
   const app = (
     <Loadable.Capture report={moduleName => modules.push(moduleName)}>
       <StaticRouter context={{ ctx }} location={getPath(ctx)}>
-        <App>
-          <Pages />
-        </App>
+        <App />
       </StaticRouter>
     </Loadable.Capture>
   )

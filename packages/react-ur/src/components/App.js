@@ -1,15 +1,16 @@
 import React from 'react'
+import { Switch, Route, Link } from 'react-router-dom'
+import _ from 'lodash'
 import { Helmet } from 'react-helmet'
+import Pages from '@app/src/pages'
 import { hot } from 'react-hot-loader'
-// import { Switch, Route } from 'react-router-dom'
-// import _ from 'lodash'
 
 import Counter from './Counter'
-// import Default404 from './404'
+import Default404 from './404'
 
-const App = ({ children }) => {
+const App = () => {
   return (
-    <>
+    <div>
       <Helmet>
         <title>React SSR Example</title>
       </Helmet>
@@ -18,10 +19,10 @@ const App = ({ children }) => {
         <h1>[react-ur]Hello world!</h1>
 
         <Counter />
-      </div>
 
-      {children}
-    </>
+        <Pages />
+      </div>
+    </div>
   )
 }
 

@@ -1,12 +1,8 @@
 import React from 'react'
 import { Switch, Route, Link } from 'react-router-dom'
 import Counter from 'src/components/Counter'
-import { hot } from 'react-hot-loader'
 import _ from 'lodash'
-
-import { components } from 'react-ur'
-
-const { Default404 } = components
+import { hot } from 'react-hot-loader'
 
 import Loadable from 'react-loadable'
 
@@ -38,7 +34,6 @@ const Pages = () => {
           {_.map(pages, (Component, path) => (
             <Route exact key={path} path={path} component={Component} />
           ))}
-          <Route path='*' component={Default404} />
         </Switch>
       </div>
     </>

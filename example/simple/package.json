@@ -21,6 +21,12 @@
   "bugs": {
     "url": "https://github.com/subuta/play-with-rollup/issues"
   },
+  "_moduleAliases": {
+    "@app": "."
+  },
+  "_moduleDirectories": [
+    "./"
+  ],
   "homepage": "https://github.com/subuta/play-with-rollup#readme",
   "dependencies": {
     "isomorphic-unfetch": "^3.0.0",
@@ -29,6 +35,7 @@
     "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
+    "module-alias": "^2.1.0",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
     "react-helmet": "^5.2.0",
@@ -49,7 +56,6 @@
     "@babel/runtime": "^7.0.0",
     "babel-loader": "^8.0.2",
     "babel-plugin-dynamic-import-node": "^2.1.0",
-    "babel-plugin-module-resolver": "^3.1.1",
     "clear-module": "^3.0.0",
     "esm": "^3.0.83",
     "npm-run-all": "^4.1.3",

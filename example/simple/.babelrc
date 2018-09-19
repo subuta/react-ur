@@ -14,9 +14,6 @@
     "babel-plugin-dynamic-import-node",
     "@babel/plugin-proposal-object-rest-spread",
     "@babel/plugin-syntax-dynamic-import",
-    "react-loadable/babel",
-    ["babel-plugin-module-resolver", {
-      "root": "./"
-    }]
+    "react-loadable/babel"
   ]
 }

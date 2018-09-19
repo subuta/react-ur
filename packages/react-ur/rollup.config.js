@@ -6,7 +6,8 @@ import external from 'rollup-plugin-peer-deps-external'
 export default {
   input: 'src/index.js',
   external: [
-    'fs'
+    'fs',
+    '@app/src/pages'
   ],
   output: [
     {
@@ -23,7 +24,8 @@ export default {
         'recompose': 'recompose',
         'react-loadable': 'Loadable',
         'react-loadable/webpack': 'LoadableWebpack',
-        'fs': 'fs'
+        'fs': 'fs',
+        '@app/src/pages': 'Pages'
       }
     }
   ],

@@ -47,6 +47,10 @@ config.resolve.modules
   .add('node_modules')
   .add(ROOT_DIR)
 
+// Add alias for @
+config.resolve.alias
+  .set('@app', process.cwd())
+
 // Add babel-loader for JS.
 config.module
   .rule('babel')
@@ -76,10 +80,7 @@ config.module
       'react-hot-loader/babel',
       "react-loadable/babel",
       '@babel/plugin-syntax-dynamic-import',
-      '@babel/plugin-proposal-object-rest-spread',
-      ['babel-plugin-module-resolver', {
-        'root': './'
-      }]
+      '@babel/plugin-proposal-object-rest-spread'
     ]
   })
 
