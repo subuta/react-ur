@@ -7,7 +7,7 @@ export default {
   input: 'src/index.js',
   external: [
     'fs',
-    '@app/src/pages'
+    '@app/pages'
   ],
   output: [
     {
@@ -25,7 +25,7 @@ export default {
         'react-loadable': 'Loadable',
         'react-loadable/webpack': 'LoadableWebpack',
         'fs': 'fs',
-        '@app/src/pages': 'Pages'
+        '@app/pages': 'Pages'
       }
     }
   ],

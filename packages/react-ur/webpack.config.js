@@ -49,7 +49,7 @@ config.resolve.modules
 
 // Add alias for @
 config.resolve.alias
-  .set('@app', process.cwd())
+  .set('@app', path.resolve(process.cwd(), './src'))
 
 // Add babel-loader for JS.
 config.module

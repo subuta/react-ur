@@ -2,7 +2,7 @@ import React from 'react'
 import { Switch, Route, Link } from 'react-router-dom'
 import _ from 'lodash'
 import { Helmet } from 'react-helmet'
-import Pages from '@app/src/pages'
+import Pages from '@app/pages'
 import { hot } from 'react-hot-loader'
 
 import Counter from './Counter'

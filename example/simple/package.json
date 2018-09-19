@@ -4,7 +4,7 @@
   "description": "Example setup for various Rollup module(es/umd/cjs) type with babel(server-side) and webpack(client-side)",
   "main": "index.js",
   "scripts": {
-    "build:server": "babel src --out-dir dist",
+    "build:server": "NODE_ENV=production babel src --out-dir dist",
     "build:client": "NODE_ENV=production webpack --silent",
     "build": "run-p build:server build:client",
     "serve": "run-p serve:server serve:client",
@@ -22,7 +22,7 @@
     "url": "https://github.com/subuta/play-with-rollup/issues"
   },
   "_moduleAliases": {
-    "@app": "."
+    "@app/pages": "./dist/pages"
   },
   "_moduleDirectories": [
     "./"
