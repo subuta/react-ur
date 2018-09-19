@@ -1,6 +1,5 @@
 import React from 'react'
-import { Switch, Route, Link } from 'react-router-dom'
-import Counter from 'src/components/Counter'
+import { Switch, Route } from 'react-router-dom'
 import _ from 'lodash'
 import { hot } from 'react-hot-loader'
 
@@ -16,27 +15,15 @@ export const pages = {
   '/baz': Loadable({ loader: () => import('./Baz'), loading })
 }
 
-const Pages = () => {
+const Pages = ({ page404 }) => {
   return (
-    <>
-      <div style={{ background: '#EEEEEE', padding: 8, margin: 8 }}>
-        <h1>[simple]Hello world!</h1>
+    <Switch>
+      {_.map(pages, (Component, path) => (
+        <Route exact key={path} path={path} component={Component} />
+      ))}
 
-        <Counter />
-
-        <div style={{ border: '1px solid black' }}>
-          <Link to="/foo" style={{ margin: '0 8px 0 0' }}>Foo</Link>
-          <Link to="/bar" style={{ margin: '0 8px 0 0' }}>Bar</Link>
-          <Link to="/baz" style={{ margin: '0 8px 0 0' }}>Baz</Link>
-        </div>
-
-        <Switch>
-          {_.map(pages, (Component, path) => (
-            <Route exact key={path} path={path} component={Component} />
-          ))}
-        </Switch>
-      </div>
-    </>
+      <Route exact path='*' component={page404} />
+    </Switch>
   )
 }
 

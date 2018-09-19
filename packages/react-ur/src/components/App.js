@@ -20,7 +20,13 @@ const App = () => {
 
         <Counter />
 
-        <Pages />
+        <div style={{ border: '1px solid black' }}>
+          <Link to="/foo" style={{ margin: '0 8px 0 0' }}>Foo</Link>
+          <Link to="/bar" style={{ margin: '0 8px 0 0' }}>Bar</Link>
+          <Link to="/baz" style={{ margin: '0 8px 0 0' }}>Baz</Link>
+        </div>
+
+        <Pages page404={Default404} />
       </div>
     </div>
   )
