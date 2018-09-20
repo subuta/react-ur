@@ -1,5 +1,7 @@
 'use strict' // load env
 
+const path = require('path')
+
 if (process.env.NODE_ENV !== 'production') {
   require = require('esm')(module)
 }
