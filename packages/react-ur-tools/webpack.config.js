@@ -11,11 +11,14 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const { ReactLoadablePlugin } = require('react-loadable/webpack')
 
 const {
   ROOT_DIR,
   CLIENT_DIR,
-  PUBLIC_DIR
+  PUBLIC_DIR,
+  APP_PORT,
+  WEBPACK_DEV_SERVER_PORT
 } = require('./config.js')
 
 // Instantiate the configuration with a new API
@@ -23,11 +26,12 @@ const config = new Config()
 
 const isAnalyze = !!process.env.ANALYZE
 const dev = process.env.NODE_ENV !== 'production'
-const port = parseInt(process.env.PORT, 10) || 3000
 
 // Interact with entry points
 config
   .entry('main')
+  .add(`webpack-dev-server/client?http://localhost:${WEBPACK_DEV_SERVER_PORT}/`)
+  .add('webpack/hot/dev-server')
   .add(path.resolve(CLIENT_DIR, './index.js'))
   .end()
   .stats(false)
@@ -43,8 +47,9 @@ config
 
 // Add modules dir
 config.resolve.modules
-  .add('node_modules')
   .add(ROOT_DIR)
+  .add(path.resolve(ROOT_DIR, './node_modules'))
+  .add(path.resolve(__dirname, './node_modules'))
 
 // Add alias for @
 config.resolve.alias
@@ -77,18 +82,20 @@ config.module
     ],
     plugins: [
       'react-hot-loader/babel',
-      "react-loadable/babel",
+      'react-loadable/babel',
       '@babel/plugin-syntax-dynamic-import',
       '@babel/plugin-proposal-object-rest-spread'
     ]
   })
 
+// CAUTION: These configuration will be ignored at webpack.js.
+// SEE: https://github.com/webpack/docs/wiki/webpack-dev-server
 config.devServer
   .hot(true)
   .noInfo(true)
   .contentBase(PUBLIC_DIR)
   .proxy({
-    '/': `http://localhost:${port}`
+    '/': `http://localhost:${APP_PORT}`
   })
 
 // SEE: https://github.com/mzgoddard/hard-source-webpack-plugin/issues/416
@@ -116,6 +123,12 @@ config
   .use(CleanWebpackPlugin, [['public/**/*.js'], {
     exclude: ['index.html'],
     beforeEmit: true
+  }])
+
+config
+  .plugin('loadable')
+  .use(ReactLoadablePlugin, [{
+    filename: './dist/react-loadable.json',
   }])
 
 // Set webpack optimization option.
