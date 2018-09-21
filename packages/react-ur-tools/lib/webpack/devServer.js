@@ -1,15 +1,13 @@
-#!/usr/bin/env node
-
 const WebpackDevServer = require('webpack-dev-server')
 const webpack = require('webpack')
-const config = require('../webpack.config')
+const config = require('./config')
 
 const {
   PUBLIC_DIR,
 
   APP_PORT,
   WEBPACK_DEV_SERVER_PORT
-} = require('../config.js')
+} = require('../../config.js')
 
 // Create webpack configuration from webpack-chain instance.
 const compiler = webpack(config.toConfig())

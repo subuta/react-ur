@@ -1,6 +1,6 @@
 // Require the webpack-chain module. This module exports a single
 // constructor function for creating a configuration API.
-const Config = require('webpack-chain')
+const WebpackChainConfig = require('webpack-chain')
 
 const path = require('path')
 const fs = require('fs')
@@ -15,17 +15,23 @@ const { ReactLoadablePlugin } = require('react-loadable/webpack')
 
 const {
   ROOT_DIR,
+  ROOT_NODE_MODULES_DIR,
   CLIENT_DIR,
   PUBLIC_DIR,
+
+  LIB_NODE_MODULES_DIR,
+
   APP_PORT,
   WEBPACK_DEV_SERVER_PORT
-} = require('./config.js')
+} = require('../../config.js')
 
 // Instantiate the configuration with a new API
-const config = new Config()
+const config = new WebpackChainConfig()
 
 const isAnalyze = !!process.env.ANALYZE
 const dev = process.env.NODE_ENV !== 'production'
+
+const babelConfig = require('../../babel/browser')()
 
 // Interact with entry points
 config
@@ -48,8 +54,8 @@ config
 // Add modules dir
 config.resolve.modules
   .add(ROOT_DIR)
-  .add(path.resolve(ROOT_DIR, './node_modules'))
-  .add(path.resolve(__dirname, './node_modules'))
+  .add(ROOT_NODE_MODULES_DIR)
+  .add(LIB_NODE_MODULES_DIR)
 
 // Add alias for @
 config.resolve.alias
@@ -63,29 +69,11 @@ config.module
   .add(/node_modules/)
   .end()
   .use('babel')
-  .loader('babel-loader')
+  // Use this packages own babel-loader.
+  .loader(require.resolve('babel-loader'))
   .options({
     babelrc: false,
-    presets: [
-      '@babel/preset-react',
-      [
-        '@babel/preset-env',
-        {
-          'targets': [
-            'last 1 version',
-            '> 1%'
-          ],
-          'useBuiltIns': 'entry',
-          'modules': false
-        }
-      ]
-    ],
-    plugins: [
-      'react-hot-loader/babel',
-      'react-loadable/babel',
-      '@babel/plugin-syntax-dynamic-import',
-      '@babel/plugin-proposal-object-rest-spread'
-    ]
+    ...babelConfig
   })
 
 // CAUTION: These configuration will be ignored at webpack.js.

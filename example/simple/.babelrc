@@ -1,19 +1,6 @@
 {
   "presets": [
-    "@babel/preset-react",
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "node": "current"
-        }
-      }
-    ]
+    "react-ur-tools/babel/node"
   ],
-  "plugins": [
-    "babel-plugin-dynamic-import-node",
-    "@babel/plugin-proposal-object-rest-spread",
-    "@babel/plugin-syntax-dynamic-import",
-    "react-loadable/babel"
-  ]
+  "plugins": []
 }

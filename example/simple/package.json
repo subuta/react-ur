@@ -1,5 +1,5 @@
 {
-  "name": "play-with-rollup",
+  "name": "simple",
   "version": "1.0.0",
   "description": "Example setup for various Rollup module(es/umd/cjs) type with babel(server-side) and webpack(client-side)",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "build": "run-p build:server build:client",
     "serve": "run-p serve:server serve:client",
     "serve:server": "node ./src/server/index.js",
-    "serve:client": "ur-webpack",
+    "serve:client": "ur-dev",
     "servep": "NODE_PATH=./ NODE_ENV=production node ./dist/server/index.js",
     "fake-link": "cp ../../packages/react-ur/dist/index.js ./react-ur.js"
   },
@@ -37,6 +37,7 @@
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "module-alias": "^2.1.0",
+    "next": "^7.0.0",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
     "react-helmet": "^5.2.0",
@@ -47,16 +48,8 @@
     "waait": "^1.0.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.1",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
-    "@babel/runtime": "^7.0.0",
-    "babel-loader": "^8.0.2",
-    "babel-plugin-dynamic-import-node": "^2.1.0",
     "clear-module": "^3.0.0",
     "esm": "^3.0.83",
     "npm-run-all": "^4.1.3",
