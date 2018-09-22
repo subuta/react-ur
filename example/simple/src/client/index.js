@@ -1,3 +1,5 @@
+import 'regenerator-runtime/runtime'
+
 import React from 'react' // eslint-disable-line
 
 import { renderClient } from 'react-ur'
