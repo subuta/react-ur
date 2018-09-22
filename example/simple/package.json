@@ -7,11 +7,14 @@
     "build:server": "NODE_ENV=production babel src --out-dir dist",
     "build:client": "NODE_ENV=production webpack --silent",
     "build": "run-p build:server build:client",
-    "serve": "run-p serve:server serve:client",
+    "serve": "npm run link-dev && run-p serve:server serve:client",
     "serve:server": "node ./src/server/index.js",
     "serve:client": "ur-dev",
     "servep": "NODE_PATH=./ NODE_ENV=production node ./dist/server/index.js",
-    "fake-link": "cp ../../packages/react-ur/dist/index.js ./react-ur.js"
+    "link:ur": "cd ../../packages/react-ur && npm run build && cp ./dist/index.js ../../example/simple/react-ur.js",
+    "link:ur-tools": "npm link ../../packages/react-ur-tools",
+    "clean:cache": "rm -rf ./node_modules/.cache",
+    "link-dev": "run-p clean:cache link:ur link:ur-tools"
   },
   "repository": {
     "type": "git",

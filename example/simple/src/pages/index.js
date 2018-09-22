@@ -10,19 +10,35 @@ const Loading = () => (
 )
 
 export const pages = {
-  '/foo': loadable(() => import('./Foo'), { LoadingComponent: Loading, }),
-  '/bar': loadable(() => import('./Bar'), { LoadingComponent: Loading, }),
-  '/baz': loadable(() => import('./Baz'), { LoadingComponent: Loading, })
+  '/foo': loadable(() => import('./Foo'), { LoadingComponent: Loading }),
+  '/bar': loadable(() => import('./Bar'), { LoadingComponent: Loading }),
+  '/baz': loadable(() => import('./Baz'), { LoadingComponent: Loading })
 }
 
-const Pages = ({ page404 }) => {
+const Pages = (props) => {
+  const {
+    page404,
+    transform = (p => p)
+  } = props
+
+  let pagesMap = new Map(_.toPairs(pages))
+  pagesMap.set('*', page404)
+
+  pagesMap = transform(pagesMap)
+
+  const array = Array.from(pagesMap.entries())
+
   return (
     <Switch>
-      {_.map(pages, (Component, path) => (
-        <Route exact key={path} path={path} component={Component} />
-      ))}
+      {_.map(array, ([path, Component]) => {
+        if (path === '*') {
+          return <Route key={path} component={Component} />
+        }
 
-      <Route exact path='*' component={page404} />
+        return (
+          <Route exact key={path} path={path} component={Component} />
+        )
+      })}
     </Switch>
   )
 }

@@ -24,6 +24,7 @@ const App = () => {
           <Link to="/foo" style={{ margin: '0 8px 0 0' }}>Foo</Link>
           <Link to="/bar" style={{ margin: '0 8px 0 0' }}>Bar</Link>
           <Link to="/baz" style={{ margin: '0 8px 0 0' }}>Baz</Link>
+          <Link to="/unk" style={{ margin: '0 8px 0 0' }}>Unk</Link>
         </div>
 
         <Pages page404={Default404} />
