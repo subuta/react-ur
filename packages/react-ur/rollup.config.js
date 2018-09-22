@@ -22,8 +22,8 @@ export default {
         'react-router-dom': 'reactRouterDom',
         'react-hot-loader': 'reactHotLoader',
         'recompose': 'recompose',
-        'react-loadable': 'Loadable',
-        'react-loadable/webpack': 'LoadableWebpack',
+        'loadable-components': 'Loadable',
+        'loadable-components/server': 'LoadableServer',
         'fs': 'fs',
         '@app/pages': 'Pages'
       }

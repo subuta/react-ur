@@ -2,10 +2,8 @@ import React from 'react'
 
 import { Helmet } from 'react-helmet'
 import { StaticRouter } from 'react-router-dom'
-import { getBundles } from 'react-loadable/webpack'
-import fs from 'fs'
 
-import Loadable from 'react-loadable'
+import { getLoadableState } from 'loadable-components/server'
 
 import {
   renderToString,
@@ -13,34 +11,25 @@ import {
 } from 'react-dom/server'
 
 import getPath from 'src/utils/getPath'
-import { isBrowser } from 'src/utils/env'
 
 import * as components from 'src/components'
 
 const { DefaultDocument: Document, DefaultApp: App } = components
 
-let stats = {}
-if (!isBrowser) {
-  stats = JSON.parse(fs.readFileSync('./dist/react-loadable.json'))
-}
-
 export default async (url, options = {}) => {
-  await Loadable.preloadAll()
-
   // Common context that will shared between modules while rendering.
   const ctx = {
     url
   }
 
-  let modules = []
-
   const app = (
-    <Loadable.Capture report={moduleName => modules.push(moduleName)}>
-      <StaticRouter context={{ ctx }} location={getPath(ctx)}>
-        <App />
-      </StaticRouter>
-    </Loadable.Capture>
+    <StaticRouter context={{ ctx }} location={getPath(ctx)}>
+      <App />
+    </StaticRouter>
   )
+
+  // Wait for loadable-components.
+  const loadableState = await getLoadableState(app)
 
   const html = renderToString(app)
 
@@ -57,17 +46,13 @@ export default async (url, options = {}) => {
     </>
   )
 
-  let bundles = getBundles(stats, modules)
-  bundles = bundles.filter(bundle => bundle.file.endsWith('.js'))
-
-  bundles = bundles.map(bundle => (
-    <script key={bundle.id} src={`${bundle.publicPath}`} />
-  ))
+  // Script tag for loadable-components.
+  const loadableStateScript = loadableState.getScriptElement()
 
   // Script tag for react-loadable.
   const bodyScripts = (
     <>
-      {bundles}
+      {loadableStateScript}
     </>
   )
 

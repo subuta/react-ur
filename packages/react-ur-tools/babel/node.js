@@ -1,10 +1,12 @@
+const resolve = require.resolve
+
 // Babel configuration for browser(will be used by @babel/register || @babel/cli).
 module.exports = function (context = {}) {
   return {
     'presets': [
-      '@babel/preset-react',
+      resolve('@babel/preset-react'),
       [
-        '@babel/preset-env',
+        resolve('@babel/preset-env'),
         {
           'targets': {
             'node': 'current'
@@ -13,10 +15,10 @@ module.exports = function (context = {}) {
       ]
     ],
     'plugins': [
-      'react-loadable/babel',
-      'babel-plugin-dynamic-import-node',
-      '@babel/plugin-syntax-dynamic-import',
-      '@babel/plugin-proposal-object-rest-spread'
+      resolve('loadable-components/babel'),
+      resolve('babel-plugin-dynamic-import-node'),
+      resolve('@babel/plugin-syntax-dynamic-import'),
+      resolve('@babel/plugin-proposal-object-rest-spread')
     ]
   }
 }

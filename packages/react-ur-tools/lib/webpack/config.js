@@ -11,7 +11,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ErrorOverlayPlugin = require('error-overlay-webpack-plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const { ReactLoadablePlugin } = require('react-loadable/webpack')
 
 const {
   ROOT_DIR,
@@ -111,12 +110,6 @@ config
   .use(CleanWebpackPlugin, [['public/**/*.js'], {
     exclude: ['index.html'],
     beforeEmit: true
-  }])
-
-config
-  .plugin('loadable')
-  .use(ReactLoadablePlugin, [{
-    filename: './dist/react-loadable.json',
   }])
 
 // Set webpack optimization option.

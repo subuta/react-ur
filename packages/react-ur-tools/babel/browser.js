@@ -1,10 +1,12 @@
+const resolve = require.resolve
+
 // Babel configuration for browser(will be used by webpack).
 module.exports = function (context = {}) {
   return {
     'presets': [
-      '@babel/preset-react',
+      resolve('@babel/preset-react'),
       [
-        '@babel/preset-env',
+        resolve('@babel/preset-env'),
         {
           'targets': [
             'last 1 version',
@@ -16,10 +18,10 @@ module.exports = function (context = {}) {
       ]
     ],
     'plugins': [
-      'react-hot-loader/babel',
-      'react-loadable/babel',
-      '@babel/plugin-syntax-dynamic-import',
-      '@babel/plugin-proposal-object-rest-spread'
+      resolve('react-hot-loader/babel'),
+      resolve('loadable-components/babel'),
+      resolve('@babel/plugin-syntax-dynamic-import'),
+      resolve('@babel/plugin-proposal-object-rest-spread')
     ]
   }
 }

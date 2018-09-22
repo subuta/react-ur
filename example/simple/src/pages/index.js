@@ -3,16 +3,16 @@ import { Switch, Route } from 'react-router-dom'
 import _ from 'lodash'
 import { hot } from 'react-hot-loader'
 
-import Loadable from 'react-loadable'
+import loadable from 'loadable-components'
 
-const loading = () => (
+const Loading = () => (
   <div>Loading...</div>
 )
 
 export const pages = {
-  '/foo': Loadable({ loader: () => import('./Foo'), loading }),
-  '/bar': Loadable({ loader: () => import('./Bar'), loading }),
-  '/baz': Loadable({ loader: () => import('./Baz'), loading })
+  '/foo': loadable(() => import('./Foo'), { LoadingComponent: Loading, }),
+  '/bar': loadable(() => import('./Bar'), { LoadingComponent: Loading, }),
+  '/baz': loadable(() => import('./Baz'), { LoadingComponent: Loading, })
 }
 
 const Pages = ({ page404 }) => {
