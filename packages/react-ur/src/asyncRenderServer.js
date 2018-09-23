@@ -12,7 +12,7 @@ import {
 } from 'react-dom/server'
 
 import getPath from './utils/getPath'
-import pages from './utils/pages'
+import getPages from './utils/pages'
 
 import * as components from './components'
 
@@ -23,6 +23,7 @@ const {
 } = components
 
 export default async (url, options = {}) => {
+  const pages = getPages()
   console.log('pages[server] = ', _.keys(pages))
 
   // Common context that will shared between modules while rendering.

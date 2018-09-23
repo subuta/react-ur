@@ -39,6 +39,7 @@ globals = {
   'loadable-components/server': 'LoadableServer',
   'fs': 'fs',
   'stream': 'stream',
+  'path': 'path',
   '@app/src/pages': 'Pages',
   '@app/pages.json': 'pagesJson'
 }

@@ -1,9 +1,11 @@
 const path = require('path')
 const findUp = require('find-up')
 
+const PAGES_PATH = 'src/pages'
+
 const ROOT_DIR = path.dirname(findUp.sync('package.json'))
 const SRC_DIR = path.resolve(ROOT_DIR, './src')
-const PAGES_DIR = path.resolve(ROOT_DIR, './src/pages')
+const PAGES_DIR = path.resolve(ROOT_DIR, PAGES_PATH)
 const CLIENT_DIR = path.resolve(SRC_DIR, './client')
 const PUBLIC_DIR = path.resolve(ROOT_DIR, './public')
 const ROOT_NODE_MODULES_DIR = path.resolve(ROOT_DIR, './node_modules')
@@ -18,6 +20,7 @@ const PAGES_JSON_PATH = path.resolve(ROOT_DIR, 'pages.json')
 
 module.exports = {
   ROOT_DIR,
+  PAGES_PATH,
   PAGES_DIR,
   CLIENT_DIR,
   PUBLIC_DIR,

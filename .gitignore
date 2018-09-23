@@ -6,4 +6,4 @@ packages/react-ur/index.js
 packages/react-ur/server.js
 
 example/simple/react-ur.js
-example/simple/pages.json
+pages.json

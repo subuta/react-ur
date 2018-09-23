@@ -5,6 +5,7 @@ import sane from 'sane'
 import fs from 'fs'
 
 import {
+  PAGES_PATH,
   PAGES_DIR,
   PAGES_JSON_PATH
 } from '../config.js'
