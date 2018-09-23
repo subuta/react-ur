@@ -10,11 +10,10 @@ import {
   renderToStaticMarkup
 } from 'react-dom/server'
 
-import getPath from 'src/utils/getPath'
-import Pages from '@app/pages'
-import pages from 'src/utils/pages'
+import getPath from './utils/getPath'
+import pages from './utils/pages'
 
-import * as components from 'src/components'
+import * as components from './components'
 
 const {
   DefaultDocument: Document,
@@ -30,9 +29,7 @@ export default async (url, options = {}) => {
 
   const app = (
     <StaticRouter context={{ ctx }} location={getPath(ctx)}>
-      <App>
-        <Pages pages={pages} page404={Default404} />
-      </App>
+      <App pages={pages} page404={Default404} />
     </StaticRouter>
   )
 

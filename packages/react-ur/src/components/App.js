@@ -5,8 +5,9 @@ import { Helmet } from 'react-helmet'
 import { hot } from 'react-hot-loader'
 
 import Counter from './Counter'
+import Page from './Page'
 
-const App = ({children}) => {
+const App = (props) => {
   return (
     <div>
       <Helmet>
@@ -25,7 +26,7 @@ const App = ({children}) => {
           <Link to="/unk" style={{ margin: '0 8px 0 0' }}>Unk</Link>
         </div>
 
-        {children}
+        <Page pages={props.pages} page404={props.page404} />
       </div>
     </div>
   )

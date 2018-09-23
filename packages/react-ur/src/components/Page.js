@@ -1,15 +1,8 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import _ from 'lodash'
-import { hot } from 'react-hot-loader'
 
-import loadable from 'loadable-components'
-
-const Loading = () => (
-  <div>Loading...</div>
-)
-
-const Pages = (props) => {
+const Page = (props) => {
   const {
     pages,
     page404,
@@ -17,6 +10,8 @@ const Pages = (props) => {
   } = props
 
   let pagesMap = new Map(_.toPairs(pages))
+
+  // Add 404 page.
   pagesMap.set('*', page404)
 
   pagesMap = transform(pagesMap)
@@ -38,4 +33,4 @@ const Pages = (props) => {
   )
 }
 
-export default hot(module)(Pages)
+export default Page
