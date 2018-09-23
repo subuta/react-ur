@@ -11,10 +11,16 @@ import {
 } from 'react-dom/server'
 
 import getPath from 'src/utils/getPath'
+import Pages from '@app/pages'
+import pages from 'src/utils/pages'
 
 import * as components from 'src/components'
 
-const { DefaultDocument: Document, DefaultApp: App } = components
+const {
+  DefaultDocument: Document,
+  DefaultApp: App,
+  Default404
+} = components
 
 export default async (url, options = {}) => {
   // Common context that will shared between modules while rendering.
@@ -24,7 +30,9 @@ export default async (url, options = {}) => {
 
   const app = (
     <StaticRouter context={{ ctx }} location={getPath(ctx)}>
-      <App />
+      <App>
+        <Pages pages={pages} page404={Default404} />
+      </App>
     </StaticRouter>
   )
 

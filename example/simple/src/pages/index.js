@@ -9,18 +9,9 @@ const Loading = () => (
   <div>Loading...</div>
 )
 
-let modules = [
-  'Foo',
-  'Bar',
-  'Baz'
-]
-
-export const pages = _.transform(modules, (result, module) => {
-  result[`/${_.toLower(module)}`] = loadable(() => import(`./${module}`), { LoadingComponent: Loading })
-}, {})
-
 const Pages = (props) => {
   const {
+    pages,
     page404,
     transform = (p => p)
   } = props

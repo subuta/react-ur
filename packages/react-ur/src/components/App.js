@@ -2,13 +2,11 @@ import React from 'react'
 import { Switch, Route, Link } from 'react-router-dom'
 import _ from 'lodash'
 import { Helmet } from 'react-helmet'
-import Pages from '@app/pages'
 import { hot } from 'react-hot-loader'
 
 import Counter from './Counter'
-import Default404 from './404'
 
-const App = () => {
+const App = ({children}) => {
   return (
     <div>
       <Helmet>
@@ -27,7 +25,7 @@ const App = () => {
           <Link to="/unk" style={{ margin: '0 8px 0 0' }}>Unk</Link>
         </div>
 
-        <Pages page404={Default404} />
+        {children}
       </div>
     </div>
   )
