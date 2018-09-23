@@ -2,10 +2,7 @@
 
 const path = require('path')
 
-if (process.env.NODE_ENV !== 'production') {
-  require = require('esm')(module)
-}
-
+require = require('esm')(module)
 require('module-alias/register')
 
 if (process.env.NODE_ENV !== 'production') {
