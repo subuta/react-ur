@@ -86,6 +86,7 @@ config.devServer
   })
 
 // SEE: https://github.com/mzgoddard/hard-source-webpack-plugin/issues/416
+// SEE: https://github.com/mzgoddard/hard-source-webpack-plugin/issues/443
 // Enable better caching for webpack compilation.
 config
   .plugin('hard-source')
