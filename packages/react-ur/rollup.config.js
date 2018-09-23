@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 import commonjs from 'rollup-plugin-commonjs'
 import resolve from 'rollup-plugin-node-resolve'
 import babel from 'rollup-plugin-babel'
@@ -27,14 +29,26 @@ const namedExports = {
   ]
 }
 
-const getConfig = (input, output) => ({
+let globals = _.transform(pkg.peerDependencies, (result, value, key) => {
+  result[key] = _.upperFirst(_.camelCase(key))
+}, {})
+
+globals = {
+  ...globals,
+  'loadable-components/server': 'LoadableServer',
+  'fs': 'fs',
+  '@app/src/pages': 'Pages'
+}
+
+const getConfig = (input, output, name) => ({
   input: input,
   external,
   output: [
     {
+      name,
+      globals,
       file: output,
-      format: 'cjs',
-      exports: 'named'
+      format: 'umd'
     }
   ],
   plugins: [
@@ -46,5 +60,5 @@ const getConfig = (input, output) => ({
 })
 
 export default [
-  getConfig('src/index.js', 'dist/index.js')
+  getConfig('src/index.js', 'dist/index.js', 'reactUr')
 ]
