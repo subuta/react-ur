@@ -56,19 +56,18 @@ if (dev) {
   app.use(views.allowedMethods())
 }
 
-app.on('error', (err, ctx) => {
-  console.error('err = ', err)
-})
-
-process.on('uncaughtException', (err) => {
+const onError = (err) => {
   // Ignore error for page deletion.
   if (err.message.match(/Cannot find module '.*\/pages(\/.*)\.js'/)) {
     const matched = err.message.match(/Cannot find module '.*\/pages(\/.*)\.js'/)
     console.log(`Page '${matched[1]}' deleted.`)
     return
   }
-  console.error('[process]err = ', err)
-})
+  console.error('err = ', err)
+}
+
+app.on('error', onError)
+process.on('uncaughtException', onError)
 
 // Serve the files on port.
 app.listen(port, function () {

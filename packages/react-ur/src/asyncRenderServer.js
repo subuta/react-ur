@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 
 import { Helmet } from 'react-helmet'
 import { StaticRouter } from 'react-router-dom'
@@ -22,7 +23,7 @@ const {
 } = components
 
 export default async (url, options = {}) => {
-  console.log('pages[server] = ', pages)
+  console.log('pages[server] = ', _.keys(pages))
 
   // Common context that will shared between modules while rendering.
   const ctx = {

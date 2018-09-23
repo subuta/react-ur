@@ -8,6 +8,10 @@ import Counter from './Counter'
 import Page from './Page'
 
 const App = (props) => {
+  const {
+    pages
+  } = props
+
   return (
     <div>
       <Helmet>
@@ -20,10 +24,10 @@ const App = (props) => {
         <Counter />
 
         <div style={{ border: '1px solid black' }}>
-          <Link to="/foo" style={{ margin: '0 8px 0 0' }}>Foo</Link>
-          <Link to="/bar" style={{ margin: '0 8px 0 0' }}>Bar</Link>
-          <Link to="/baz" style={{ margin: '0 8px 0 0' }}>Baz</Link>
-          <Link to="/unk" style={{ margin: '0 8px 0 0' }}>Unk</Link>
+          {_.map(pages, (value, path) => (
+            <Link key={path} to={path} style={{ margin: '0 8px 0 0' }}>{path}</Link>
+          ))}
+          <Link to="/not-exists" style={{ margin: '0 8px 0 0' }}>Not exists</Link>
         </div>
 
         <Page pages={props.pages} page404={props.page404} />

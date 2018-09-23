@@ -35,9 +35,12 @@ let globals = _.transform(pkg.peerDependencies, (result, value, key) => {
 
 globals = {
   ...globals,
+  'lodash': '_',
   'loadable-components/server': 'LoadableServer',
   'fs': 'fs',
-  '@app/src/pages': 'Pages'
+  'stream': 'stream',
+  '@app/src/pages': 'Pages',
+  '@app/pages.json': 'pagesJson'
 }
 
 const getConfig = (input, output, name) => ({
