@@ -22,6 +22,8 @@ const {
 } = components
 
 export default async (url, options = {}) => {
+  console.log('pages[server] = ', pages)
+
   // Common context that will shared between modules while rendering.
   const ctx = {
     url

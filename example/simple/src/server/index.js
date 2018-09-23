@@ -9,9 +9,9 @@ if (process.env.NODE_ENV !== 'production') {
 require('module-alias/register')
 
 if (process.env.NODE_ENV !== 'production') {
-  // Add dynamic alias to /src/pages while development.
   const moduleAlias = require('module-alias')
-  moduleAlias.addAlias('@app/pages', path.resolve(process.cwd(), './src/pages'))
+  // Override alias to @app/src/pages while development.
+  moduleAlias.addAlias('@app/src/pages', path.resolve(process.cwd(), './src/pages'))
 
   require('@babel/register')
 }

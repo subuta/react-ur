@@ -22,15 +22,17 @@ const getConfig = (input, output) => ({
     }
   ],
   external: [
-    'path',
     ...Object.keys(pkg.dependencies),
-    ...Object.keys(pkg.peerDependencies)
+    ...Object.keys(pkg.peerDependencies),
+    'path',
+    'fs'
   ],
   plugins
 })
 
 export default [
+  getConfig('lib/index.js', 'dist/index.js'),
   getConfig('lib/webpack/devServer.js', 'dist/webpack/devServer.js'),
   getConfig('lib/webpack/config.js', 'dist/webpack/config.js'),
-  getConfig('lib/webpack/build.js', 'dist/webpack/build.js'),
+  getConfig('lib/webpack/build.js', 'dist/webpack/build.js')
 ]

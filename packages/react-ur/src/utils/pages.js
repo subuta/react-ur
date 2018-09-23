@@ -1,17 +1,19 @@
 import React from 'react' // eslint-disable-line
 import _ from 'lodash'
 import loadable from 'loadable-components'
+// import pagesJson from '@app/pages.json'
 
 const Loading = () => (
   <div>Loading...</div>
 )
 
-const modules = [
-  'Foo',
-  'Bar',
-  'Baz'
+const pagesJson = [
+  'foo',
+  'bar',
+  'baz'
 ]
 
-export default _.transform(modules, (result, module) => {
-  result[`/${_.toLower(module)}`] = loadable(() => import(`@app/pages/${module}`), { LoadingComponent: Loading })
+// Parse pages.json and create Loadable components.
+export default _.transform(pagesJson, (result, module) => {
+  result[`/${_.toLower(module)}`] = loadable(() => import(`@app/src/pages/${module}`), { LoadingComponent: Loading })
 }, {})

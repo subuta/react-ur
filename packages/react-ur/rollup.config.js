@@ -1,48 +1,50 @@
 import commonjs from 'rollup-plugin-commonjs'
 import resolve from 'rollup-plugin-node-resolve'
 import babel from 'rollup-plugin-babel'
-import external from 'rollup-plugin-peer-deps-external'
+import json from 'rollup-plugin-json'
 
-export default {
-  input: 'src/index.js',
-  external: [
-    'fs',
-    '@app/pages'
+import pkg from './package.json'
+
+const external = [
+  ...Object.keys(pkg.peerDependencies),
+  ...Object.keys(pkg.dependencies),
+  'loadable-components/server',
+  'fs',
+  'path',
+  'stream',
+  '@app/src/pages',
+  '@app/pages.json'
+]
+
+// For suppress warning of rollup :(
+const namedExports = {
+  'react-hot-loader': [
+    'hot'
   ],
+  'react-dom/server': [
+    'renderToString',
+    'renderToStaticMarkup'
+  ]
+}
+
+const getConfig = (input, output) => ({
+  input: input,
+  external,
   output: [
     {
-      file: 'dist/index.js',
-      name: 'reactUr',
-      format: 'umd',
-      globals: {
-        'react': 'React',
-        'react-dom': 'ReactDOM',
-        'react-dom/server': 'ReactDOMServer',
-        'react-helmet': 'reactHelmet',
-        'react-router-dom': 'reactRouterDom',
-        'react-hot-loader': 'reactHotLoader',
-        'recompose': 'recompose',
-        'loadable-components': 'Loadable',
-        'loadable-components/server': 'LoadableServer',
-        'fs': 'fs',
-        '@app/pages': 'Pages'
-      }
+      file: output,
+      format: 'cjs',
+      exports: 'named'
     }
   ],
   plugins: [
-    external(),
+    json(),
     babel(),
     resolve(),
-    commonjs({
-      namedExports: {
-        'react-hot-loader': [
-          'hot'
-        ],
-        'react-dom/server': [
-          'renderToString',
-          'renderToStaticMarkup'
-        ]
-      }
-    })
+    commonjs({ namedExports })
   ]
-}
+})
+
+export default [
+  getConfig('src/index.js', 'dist/index.js')
+]

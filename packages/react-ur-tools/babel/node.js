@@ -16,7 +16,6 @@ module.exports = function (context = {}) {
     ],
     'plugins': [
       resolve('loadable-components/babel'),
-      resolve('babel-plugin-dynamic-import-node'),
       resolve('@babel/plugin-syntax-dynamic-import'),
       resolve('@babel/plugin-proposal-object-rest-spread')
     ]

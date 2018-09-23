@@ -56,7 +56,7 @@ config.resolve.modules
 
 // Add alias for @
 config.resolve.alias
-  .set('@app', path.resolve(process.cwd(), './src'))
+  .set('@app', ROOT_DIR)
 
 // Add babel-loader for JS.
 config.module

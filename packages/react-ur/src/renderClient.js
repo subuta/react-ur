@@ -10,6 +10,8 @@ const { DefaultApp: App, Default404 } = components
 import pages from './utils/pages'
 
 export default async (selector = '#app', options = {}) => {
+  console.log('pages[browser] = ', pages)
+
   await loadComponents()
 
   const app = (

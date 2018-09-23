@@ -27,7 +27,8 @@
     "url": "https://github.com/subuta/play-with-rollup/issues"
   },
   "_moduleAliases": {
-    "@app/pages": "./dist/pages"
+    "@app": ".",
+    "@app/src/pages": "./dist/pages"
   },
   "_moduleDirectories": [
     "./"

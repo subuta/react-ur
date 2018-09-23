@@ -56,7 +56,7 @@ const server = new WebpackDevServer(compiler, {
   // Control the console log messages shown in the browser when using inline mode. Can be `error`, `warning`, `info` or `none`.
 
   // webpack-dev-middleware options
-  quiet: true,
+  // quiet: true,
   noInfo: true,
   // lazy: true,
 
