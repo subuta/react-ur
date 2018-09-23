@@ -35,8 +35,6 @@ const babelConfig = require('../../babel/browser')()
 // Interact with entry points
 config
   .entry('main')
-  .add(`webpack-dev-server/client?http://localhost:${WEBPACK_DEV_SERVER_PORT}/`)
-  .add('webpack/hot/dev-server')
   .add(path.resolve(CLIENT_DIR, './index.js'))
   .end()
   .stats(false)
@@ -126,6 +124,11 @@ config.node
 config
   .when(dev, devConfig => {
     devConfig
+      .entry('main')
+      .add(`webpack-dev-server/client?http://localhost:${WEBPACK_DEV_SERVER_PORT}/`)
+      .add('webpack/hot/dev-server')
+
+    devConfig
       .plugin('friendly-errors')
       .use(FriendlyErrorsWebpackPlugin, [{
         clearConsole: false
@@ -151,5 +154,10 @@ config
 // For debug print.
 // console.log(config.toString())
 
+export {
+  config
+}
+
 // Export the completed configuration object to be consumed by webpack
-module.exports = config
+export default config.toConfig()
+

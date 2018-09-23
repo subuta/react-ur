@@ -1,16 +1,16 @@
-const WebpackDevServer = require('webpack-dev-server')
-const webpack = require('webpack')
-const config = require('./config')
+import webpack from 'webpack'
+import WebpackDevServer from 'webpack-dev-server'
+import config from './config'
 
-const {
+import {
   PUBLIC_DIR,
 
   APP_PORT,
   WEBPACK_DEV_SERVER_PORT
-} = require('../../config.js')
+} from '../../config.js'
 
 // Create webpack configuration from webpack-chain instance.
-const compiler = webpack(config.toConfig())
+const compiler = webpack(config)
 
 // SEE: https://github.com/webpack/docs/wiki/webpack-dev-server
 const server = new WebpackDevServer(compiler, {

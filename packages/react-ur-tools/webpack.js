@@ -1,3 +1,1 @@
-const config = require('lib/webpack/config')
-
-module.exports = config
+module.exports = require('dist/webpack/config')

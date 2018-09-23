@@ -5,17 +5,17 @@
   "main": "index.js",
   "scripts": {
     "build:server": "NODE_ENV=production babel src --out-dir dist",
-    "build:client": "NODE_ENV=production webpack --silent",
+    "build:client": "NODE_ENV=production ubuild",
     "build": "run-p build:server build:client",
     "serve": "run-p serve:server serve:client",
-    "lserve": "npm run link-dev && npm run serve",
+    "lserve": "run-s ulink serve",
     "serve:server": "node ./src/server/index.js",
-    "serve:client": "ur-dev",
+    "serve:client": "udev",
     "servep": "NODE_PATH=./ NODE_ENV=production node ./dist/server/index.js",
-    "link:ur": "cd ../../packages/react-ur && npm run build && cp ./dist/index.js ../../example/simple/react-ur.js",
-    "link:ur-tools": "npm link ../../packages/react-ur-tools",
+    "ulink:ur": "cd ../../packages/react-ur && npm run build && cp ./dist/index.js ../../example/simple/react-ur.js",
+    "ulink:ur-tools": "npm link ../../packages/react-ur-tools",
     "clean:cache": "rm -rf ./node_modules/.cache",
-    "link-dev": "run-p clean:cache link:ur link:ur-tools"
+    "ulink": "run-p clean:cache ulink:ur ulink:ur-tools"
   },
   "repository": {
     "type": "git",
@@ -52,6 +52,7 @@
     "waait": "^1.0.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.1",
     "@babel/register": "^7.0.0",
     "clear-module": "^3.0.0",

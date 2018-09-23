@@ -1,3 +1,3 @@
 #!/usr/bin/env node
 
-require('../lib/webpack/devServer')
+require('../dist/webpack/devServer')
