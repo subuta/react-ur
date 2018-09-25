@@ -1,1 +1,1 @@
-module.exports = require('dist/webpack/config')
+module.exports = require('dist/webpack/config.bundle')

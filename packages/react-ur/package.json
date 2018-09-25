@@ -1,11 +1,11 @@
 {
   "name": "react-ur",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Universal react renderer",
   "main": "dist/index.js",
   "scripts": {
     "build": "rollup -c",
-    "prepublish": "npm run build"
+    "prepare": "npm run build"
   },
   "files": [
     "dist/**/*",

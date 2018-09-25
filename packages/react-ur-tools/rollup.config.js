@@ -32,7 +32,7 @@ const getConfig = (input, output) => ({
 
 export default [
   getConfig('lib/index.js', 'dist/index.js'),
-  getConfig('lib/webpack/devServer.js', 'dist/webpack/devServer.js'),
-  getConfig('lib/webpack/config.js', 'dist/webpack/config.js'),
-  getConfig('lib/webpack/build.js', 'dist/webpack/build.js')
+  getConfig('lib/webpack/devServer.js', 'dist/webpack/devServer.bundle.js'),
+  getConfig('lib/webpack/config.js', 'dist/webpack/config.bundle.js'),
+  getConfig('lib/webpack/build.js', 'dist/webpack/build.bundle.js')
 ]
