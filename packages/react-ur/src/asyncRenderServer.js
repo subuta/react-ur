@@ -14,6 +14,7 @@ import {
 import {
   getInitialPropsFromComponent,
   rememberInitialProps,
+  forgetPromise,
   getScriptElement as getInitialPropsScriptElement
 } from './utils/initialProps'
 
@@ -55,6 +56,9 @@ export default async (url, options = {}) => {
   }
 
   const html = renderToString(app)
+
+  // Clear remembered promise while render.
+  forgetPromise()
 
   const helmet = Helmet.renderStatic()
 

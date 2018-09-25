@@ -6,6 +6,8 @@ import { Helmet } from 'react-helmet'
 import Counter from './Counter'
 import Page from './Page'
 
+import { preload } from '../utils/loadable'
+
 const App = (props) => {
   const {
     pages
@@ -23,8 +25,15 @@ const App = (props) => {
         <Counter />
 
         <div style={{ border: '1px solid black' }}>
-          {_.map(pages, (value, path) => (
-            <Link key={path} to={path} style={{ margin: '0 8px 0 0' }}>{path}</Link>
+          {_.map(pages, (Loadable, path) => (
+            <Link
+              style={{ margin: '0 8px 0 0' }}
+              to={path}
+              onMouseEnter={() => preload(Loadable, path)}
+              key={path}
+            >
+              {path}
+            </Link>
           ))}
           <Link to="/not-exists" style={{ margin: '0 8px 0 0' }}>Not exists</Link>
         </div>
