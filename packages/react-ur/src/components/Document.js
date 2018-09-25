@@ -12,13 +12,13 @@ export default (props) => {
   return (
     <html {...htmlAttributes}>
       <head>
-        <title>React SSR Example</title>
+        <title>react-ur example</title>
 
         {scripts}
       </head>
       <body {...bodyAttributes}>
         <div className='container'>
-          <h3>React SSR Example</h3>
+          <h3>react-ur example</h3>
           {main}
         </div>
 

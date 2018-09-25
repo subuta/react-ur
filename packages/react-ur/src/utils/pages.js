@@ -4,9 +4,10 @@ import loadable from 'loadable-components'
 
 import { dev, isBrowser } from './env'
 
-const Loading = () => (
-  <div>Loading...</div>
-)
+import {
+  wrapLoadable,
+  renderLoadable
+} from './loadable'
 
 if (isBrowser && module.hot) {
   module.hot.dispose(function () {
@@ -27,6 +28,6 @@ export default () => {
   const pagesJson = require('@app/pages.json')
 
   return _.transform(pagesJson, (result, module) => {
-    result[`/${_.toLower(module)}`] = loadable(() => import(`@app/src/pages/${module}`), { LoadingComponent: Loading })
+    result[`/${_.toLower(module)}`] = loadable(async () => wrapLoadable(await import(`@app/src/pages/${module}`)), { render: renderLoadable })
   }, {})
 }

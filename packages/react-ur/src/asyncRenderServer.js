@@ -11,6 +11,12 @@ import {
   renderToStaticMarkup
 } from 'react-dom/server'
 
+import {
+  getInitialPropsFromComponent,
+  rememberInitialProps,
+  getScriptElement as getInitialPropsScriptElement
+} from './utils/initialProps'
+
 import getPath from './utils/getPath'
 import getPages from './utils/pages'
 
@@ -40,6 +46,14 @@ export default async (url, options = {}) => {
   // Wait for loadable-components.
   const loadableState = await getLoadableState(app)
 
+  const Page = _.get(pages, getPath(ctx), null)
+  if (Page) {
+    // Call getInitialProps of Page if defined.
+    // Fetch initialProps and remember it in ctx.
+    const initialProps = await getInitialPropsFromComponent(Page, getPath(ctx))
+    rememberInitialProps(initialProps, ctx)
+  }
+
   const html = renderToString(app)
 
   const helmet = Helmet.renderStatic()
@@ -57,11 +71,14 @@ export default async (url, options = {}) => {
 
   // Script tag for loadable-components.
   const loadableStateScript = loadableState.getScriptElement()
+  // Script tag for initialProps.
+  const initialPropsScript = getInitialPropsScriptElement(ctx)
 
   // Script tag for react-loadable.
   const bodyScripts = (
     <>
       {loadableStateScript}
+      {initialPropsScript}
     </>
   )
 

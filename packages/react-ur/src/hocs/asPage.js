@@ -14,9 +14,9 @@ import {
   getInitialPropsFromContext,
   forgetInitialProps,
   forgetPromise
-} from 'lib/common/utils/initialProps'
-import { isBrowser } from 'lib/common/utils/env'
-import getPath from 'lib/common/utils/getPath'
+} from '../utils/initialProps'
+import { isBrowser } from '../utils/env'
+import getPath from '../utils/getPath'
 
 const mapCtx = mapProps((props) => {
   // Get ctx from react-router's staticContext.
