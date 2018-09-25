@@ -1,9 +1,6 @@
 node_modules
 dist/
 public/
-pages/index.js
-packages/react-ur/index.js
-packages/react-ur/server.js
 
-example/simple/react-ur.js
+react-ur.js
 pages.json

@@ -1,2 +1,2 @@
-# react-ur
+# Simple react-ur example.
 React universal renderer.

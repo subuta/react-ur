@@ -21,26 +21,27 @@ import {
 import getPath from './utils/getPath'
 import getPages from './utils/pages'
 
-import * as components from './components'
-
-const {
-  DefaultDocument: Document,
-  DefaultApp: App,
-  Default404
-} = components
+import DefaultApp from './components/App'
+import DefaultDocument from './components/Document'
 
 export default async (url, options = {}) => {
   const pages = getPages()
-  console.log('pages[server] = ', _.keys(pages))
+
+  const App = options.App || DefaultApp
+  const Document = options.Document || DefaultDocument
 
   // Common context that will shared between modules while rendering.
   const ctx = {
     url
   }
 
+  const appCtx = {
+    pages,
+  }
+
   const app = (
     <StaticRouter context={{ ctx }} location={getPath(ctx)}>
-      <App pages={pages} page404={Default404} />
+      <App context={appCtx} />
     </StaticRouter>
   )
 
@@ -48,12 +49,11 @@ export default async (url, options = {}) => {
   const loadableState = await getLoadableState(app)
 
   const Page = _.get(pages, getPath(ctx), null)
-  if (Page) {
-    // Call getInitialProps of Page if defined.
-    // Fetch initialProps and remember it in ctx.
-    const initialProps = await getInitialPropsFromComponent(Page, getPath(ctx))
-    rememberInitialProps(initialProps, ctx)
-  }
+
+  // Call getInitialProps of Page if defined.
+  // Fetch initialProps and remember it in ctx.
+  const initialProps = Page ? (await getInitialPropsFromComponent(Page, getPath(ctx))) : {}
+  rememberInitialProps(initialProps, ctx)
 
   const html = renderToString(app)
 

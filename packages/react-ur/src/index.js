@@ -1,20 +1,29 @@
 // SEE: https://github.com/rollup/rollup-plugin-babel/issues/209
 import 'regenerator-runtime/runtime'
 
-import * as components from './components'
+import Context from './components/Context'
+import connect from './hocs/connect'
 import renderClient from './renderClient'
 import asyncRenderServer from './asyncRenderServer'
 
 import {
   wrapLoadable,
-  renderLoadable
+  renderLoadable,
+  preload
 } from './utils/loadable'
 
 export {
-  components,
+  // Components
+  Context,
+
+  // HOCs
+  connect,
+
+  // APIs
   renderClient,
   asyncRenderServer,
 
   wrapLoadable,
-  renderLoadable
+  renderLoadable,
+  preload
 }

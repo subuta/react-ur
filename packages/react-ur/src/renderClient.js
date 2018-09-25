@@ -1,24 +1,27 @@
 import React from 'react' // eslint-disable-line
-import _ from 'lodash'
 
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { loadComponents } from 'loadable-components'
 
-import * as components from './components'
-const { DefaultApp: App, Default404 } = components
+import DefaultApp from './components/App'
 
 import getPages from './utils/pages'
 
 export default async (selector = '#app', options = {}) => {
   const pages = getPages()
-  console.log('pages[browser] = ', _.keys(pages))
+
+  const App = options.App || DefaultApp
 
   await loadComponents()
 
+  const appCtx = {
+    pages
+  }
+
   const app = (
     <BrowserRouter>
-      <App pages={pages} page404={Default404} />
+      <App context={appCtx} />
     </BrowserRouter>
   )
 

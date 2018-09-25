@@ -1,6 +1,5 @@
 import React from 'react'
 import _ from 'lodash'
-import { hot } from 'react-hot-loader'
 
 import {
   getInitialPropsFromContext,
@@ -28,11 +27,11 @@ export const wrapLoadable = (module) => {
 
 // Pre-fetch loadable component with pre-resolving initialProps.
 export const preload = async (loadable, path) => {
-  console.log(`[start] Pre-fetching bundle for ${path}`)
+  console.debug(`[start] Pre-fetching bundle for ${path}`)
   // fetch Page component(bundle).
   const Component = await loadable.load()
   // fetch initialProps of Page.
   const initialProps = await getInitialPropsFromComponent(Component, path)
-  console.log(`[end] Pre-fetching bundle for ${path} initialProps=`, initialProps)
+  console.debug(`[end] Pre-fetching bundle for ${path} initialProps=`, initialProps)
   return initialProps
 }

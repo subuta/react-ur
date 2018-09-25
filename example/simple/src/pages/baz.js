@@ -1,9 +1,11 @@
 import React from 'react'
+import { hot } from 'react-hot-loader'
 import { Helmet } from 'react-helmet'
+
 import _ from 'lodash'
 import fetch from 'isomorphic-unfetch'
 
-import { hot } from 'react-hot-loader'
+import Header from '../components/Header'
 
 const Baz = (props) => {
   const {
@@ -15,6 +17,8 @@ const Baz = (props) => {
       <Helmet>
         <title>Baz | react-ur example</title>
       </Helmet>
+
+      <Header />
 
       <h1>Baz</h1>
 

@@ -1,7 +1,7 @@
 {
-  "name": "simple",
+  "name": "complex",
   "version": "1.0.0",
-  "description": "Simple react-ur example",
+  "description": "Complex react-ur example",
   "main": "index.js",
   "scripts": {
     "build:server": "NODE_ENV=production ubuild:server",
@@ -12,7 +12,7 @@
     "serve:server": "userver",
     "serve:client": "udev",
     "servep": "NODE_PATH=./ NODE_ENV=production userver",
-    "ulink:ur": "cd ../../packages/react-ur && npm run build && cp ./dist/index.js ../../example/simple/react-ur.js",
+    "ulink:ur": "cd ../../packages/react-ur && npm run build && cp ./dist/index.js ../../example/complex/react-ur.js",
     "ulink:ur-tools": "npm link ../../packages/react-ur-tools",
     "clean:cache": "rm -rf ./node_modules/.cache",
     "ulink": "run-p clean:cache ulink:ur ulink:ur-tools"
@@ -31,6 +31,7 @@
     "esm": "^3.0.84",
     "isomorphic-unfetch": "^3.0.0",
     "koa": "^2.5.3",
+    "koa-body": "^4.0.4",
     "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
