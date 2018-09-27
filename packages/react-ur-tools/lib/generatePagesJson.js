@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import glob from 'glob'
 import sane from 'sane'
+import path from 'path'
 
 import fs from 'fs'
 
@@ -21,10 +22,10 @@ export default (watch = false) => {
     const files = _.map(glob.sync('**/*.js', {
       cwd: PAGES_DIR,
       ignore: ['**/_*.js', '**/index.js']
-    }), (file) => _.trimEnd(file, '.js'))
+    }), (file) => path.basename(file, '.js'))
 
     // Concat and normalize as path name. (eg: `foo`)
-    const pages = _.map([...files, ...directories], (page) => _.toLower(page))
+    const pages = _.uniq(_.map([...files, ...directories], (page) => _.toLower(page)))
 
     // Write pages as json.
     fs.writeFileSync(PAGES_JSON_PATH, JSON.stringify(pages), { encoding: 'utf8' })

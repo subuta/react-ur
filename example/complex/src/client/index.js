@@ -2,8 +2,9 @@ import React from 'react' // eslint-disable-line
 
 import { renderClient } from 'react-ur'
 
-console.log('Render loaded react component(via umd)')
-renderClient('#app')
+import App from '../components/App'
+
+renderClient('#app', { App })
 
 if (module.hot) {
   // console.clear()

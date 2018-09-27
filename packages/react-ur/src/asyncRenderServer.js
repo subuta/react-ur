@@ -24,6 +24,8 @@ import getPages from './utils/pages'
 import DefaultApp from './components/App'
 import DefaultDocument from './components/Document'
 
+import Context from './components/Context'
+
 export default async (url, options = {}) => {
   const pages = getPages()
 
@@ -41,7 +43,9 @@ export default async (url, options = {}) => {
 
   const app = (
     <StaticRouter context={{ ctx }} location={getPath(ctx)}>
-      <App context={appCtx} />
+      <Context.Provider value={appCtx}>
+        <App />
+      </Context.Provider>
     </StaticRouter>
   )
 

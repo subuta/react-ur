@@ -6,6 +6,8 @@ import { loadComponents } from 'loadable-components'
 
 import DefaultApp from './components/App'
 
+import Context from './components/Context'
+
 import getPages from './utils/pages'
 
 export default async (selector = '#app', options = {}) => {
@@ -21,7 +23,9 @@ export default async (selector = '#app', options = {}) => {
 
   const app = (
     <BrowserRouter>
-      <App context={appCtx} />
+      <Context.Provider value={appCtx}>
+        <App />
+      </Context.Provider>
     </BrowserRouter>
   )
 

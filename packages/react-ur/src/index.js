@@ -1,8 +1,10 @@
 // SEE: https://github.com/rollup/rollup-plugin-babel/issues/209
 import 'regenerator-runtime/runtime'
 
+import Page from './components/Page'
 import Context from './components/Context'
-import connect from './hocs/connect'
+
+import withContext from './hocs/withContext'
 import renderClient from './renderClient'
 import asyncRenderServer from './asyncRenderServer'
 
@@ -14,10 +16,11 @@ import {
 
 export {
   // Components
+  Page,
   Context,
 
   // HOCs
-  connect,
+  withContext,
 
   // APIs
   renderClient,
