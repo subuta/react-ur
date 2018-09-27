@@ -2,6 +2,7 @@ import React from 'react'
 import { hot } from 'react-hot-loader'
 import { Helmet } from 'react-helmet'
 
+import { timeout, TimeoutError } from 'promise-timeout'
 import _ from 'lodash'
 import fetch from 'isomorphic-unfetch'
 
@@ -33,9 +34,15 @@ const Baz = (props) => {
 
 Baz.getInitialProps = async () => {
   console.log('Retrieving jokes from icndb for you...')
-  const jokes = await fetch('http://api.icndb.com/jokes/random/3')
+  const jokes = await timeout(fetch('http://api.icndb.com/jokes/random/3'), 1000)
     .then(res => res.json())
     .then(json => _.get(json, 'value', []))
+    .catch(err => {
+      if (err instanceof TimeoutError) {
+        return [{id: 1, joke: 'icndb not responding within 1s :('}]
+      }
+      return []
+    })
 
   return {
     jokes
