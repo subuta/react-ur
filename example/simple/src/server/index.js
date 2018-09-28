@@ -3,13 +3,13 @@ import logger from 'koa-logger'
 import serve from 'koa-static'
 
 import { asyncRenderServer } from 'react-ur'
-import { generatePagesJson } from 'react-ur-tools'
+import { generateRoutesJson } from 'react-ur-tools'
 
 const {
   PORT
 } = process.env
 
-generatePagesJson(true)
+generateRoutesJson(true)
 
 const port = parseInt(PORT, 10) || 3000
 const app = new Koa()
@@ -26,10 +26,10 @@ app.use(async ctx => {
 
 // Error handler.
 const onError = (err) => {
-  // Ignore error for page add/delete.
-  if (err.message.match(/Cannot find module '.*\/pages(\/.*)\.js'/)) {
-    const matched = err.message.match(/Cannot find module '.*\/pages(\/.*)\.js'/)
-    console.log(`Page '${matched[1]}' deleted.`)
+  // Ignore error for route add/delete.
+  if (err.message.match(/Cannot find module '.*\/routes(\/.*)\.js'/)) {
+    const matched = err.message.match(/Cannot find module '.*\/routes(\/.*)\.js'/)
+    console.log(`Route '${matched[1]}' deleted.`)
     return
   }
   console.error('err = ', err)

@@ -10,7 +10,7 @@ import {
   PUBLIC_DIR
 } from '../../config'
 
-import { generatePagesJson } from 'react-ur-tools'
+import { generateRoutesJson } from 'react-ur-tools'
 
 const {
   PORT
@@ -18,7 +18,7 @@ const {
 
 const dev = process.env.NODE_ENV !== 'production'
 
-generatePagesJson(true)
+generateRoutesJson(true)
 
 const port = parseInt(PORT, 10) || 3000
 const app = new Koa()

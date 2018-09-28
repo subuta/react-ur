@@ -7,10 +7,10 @@ import {
   preload
 } from 'react-ur'
 
-export default connect(({ pages }) => {
+export default connect(({ routes }) => {
   return (
     <div style={{ border: '1px solid black' }}>
-      {_.map(pages, (Loadable, path) => (
+      {_.map(routes, (Loadable, path) => (
         <Link
           style={{ margin: '0 8px 0 0' }}
           to={path}

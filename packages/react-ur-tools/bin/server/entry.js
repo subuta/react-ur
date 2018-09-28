@@ -1,3 +1,1 @@
-#!/usr/bin/env node
-
-require('../../dist/server/entry')
+require('../../lib/server/entry')

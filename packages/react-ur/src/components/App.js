@@ -1,9 +1,9 @@
 import React from 'react'
 
-import Page from '../components/Page'
+import Routes from '../components/Routes'
 
 export default (props) => {
   return (
-    <Page />
+    <Routes />
   )
 }

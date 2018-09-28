@@ -2,10 +2,10 @@
 
 const {
   ROOT_DIR,
-  PAGES_DIR,
+  ROUTES_DIR,
   SERVER_DIR,
   DIST_SERVER_DIR,
-  DIST_PAGES_DIR
+  DIST_ROUTES_DIR
 } = require('../../config')
 
 require = require('esm')(module)
@@ -17,7 +17,7 @@ const moduleAlias = require('module-alias')
 
 // Add custom alias to module-alias.
 moduleAlias.addAlias('@app', ROOT_DIR)
-moduleAlias.addAlias('@app/src/pages', dev ? PAGES_DIR : DIST_PAGES_DIR)
+moduleAlias.addAlias('@app/src/routes', dev ? ROUTES_DIR : DIST_ROUTES_DIR)
 
 // Add custom directories.
 moduleAlias.addPath(ROOT_DIR)

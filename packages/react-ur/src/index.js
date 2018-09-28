@@ -1,7 +1,7 @@
 // SEE: https://github.com/rollup/rollup-plugin-babel/issues/209
 import 'regenerator-runtime/runtime'
 
-import Page from './components/Page'
+import Routes from './components/Routes'
 import Context from './components/Context'
 
 import withContext from './hocs/withContext'
@@ -16,7 +16,7 @@ import {
 
 export {
   // Components
-  Page,
+  Routes,
   Context,
 
   // HOCs

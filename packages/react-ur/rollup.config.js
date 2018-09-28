@@ -14,8 +14,8 @@ const external = [
   'fs',
   'path',
   'stream',
-  '@app/src/pages',
-  '@app/pages.json'
+  '@app/src/routes',
+  '@app/routes.json'
 ]
 
 // For suppress warning of rollup :(
@@ -40,8 +40,8 @@ globals = {
   'fs': 'fs',
   'stream': 'stream',
   'path': 'path',
-  '@app/src/pages': 'Pages',
-  '@app/pages.json': 'pagesJson'
+  '@app/src/routes': 'Routes',
+  '@app/routes.json': 'routesJson'
 }
 
 const getConfig = (input, output, name) => ({

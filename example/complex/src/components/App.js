@@ -1,13 +1,14 @@
 import React from 'react'
 
-import { Page } from 'react-ur'
+import { Routes } from 'react-ur'
 
-export default (props) => {
-  console.log('render custom App!')
+export default () => {
   return (
-    <Page configure={(pages) => {
-      pages['/bar'] = pages['/todo']
+    <Routes configure={(pages) => {
       return pages
+        .rename('/todos', '/')
+        .rename('/todo', '/todo/:id')
+        .inject404()
     }} />
   )
 }

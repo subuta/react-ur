@@ -1,4 +1,5 @@
 import React from 'react' // eslint-disable-line
+import _ from 'lodash'
 
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
@@ -8,17 +9,26 @@ import DefaultApp from './components/App'
 
 import Context from './components/Context'
 
-import getPages from './utils/pages'
+import getRoutes from './utils/routes'
+import { dev, isBrowser } from './utils/env'
+
+const routes = getRoutes()
+
+if (dev && isBrowser) {
+  // Add debug tools.
+  window.rur = {
+    routes: () => routes.pp(),
+    currentRoute: () => routes.currentRoute(),
+  }
+}
 
 export default async (selector = '#app', options = {}) => {
-  const pages = getPages()
-
   const App = options.App || DefaultApp
 
   await loadComponents()
 
   const appCtx = {
-    pages
+    routes
   }
 
   const app = (

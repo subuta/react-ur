@@ -16,10 +16,8 @@ react-ur makes your Universal React development flow easier with fantastic tools
 - No complex routing logic needed anymore! (Will just render page in the `/pages`)
 - [next.js](https://github.com/zeit/next.js/) inspired `getInitialProps` lifecycle.
 - No brain clutter configuration. Just run these commands for `building bundle, starting dev-server/prod-server`
-  - `udev` -> Start webpack-dev-server
-  - `userver` -> Run /server script with ES6/ESM feature enabled :heart_eyes:
-  - `ubuild:server` -> Transpile /server scripts for Production via babel
-  - `ubuild:client` -> Build client via webpack
+  - `rur start` -> Start webpack-dev-server and /server script with ES6/ESM feature enabled :heart_eyes:
+  - `rur build` -> Build client via webpack and Transpile /server scripts for Production via babel
 
 ## How to try
 

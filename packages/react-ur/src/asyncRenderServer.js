@@ -19,7 +19,7 @@ import {
 } from './utils/initialProps'
 
 import getPath from './utils/getPath'
-import getPages from './utils/pages'
+import getRoutes from './utils/routes'
 
 import DefaultApp from './components/App'
 import DefaultDocument from './components/Document'
@@ -27,7 +27,7 @@ import DefaultDocument from './components/Document'
 import Context from './components/Context'
 
 export default async (url, options = {}) => {
-  const pages = getPages()
+  const routes = getRoutes()
 
   const App = options.App || DefaultApp
   const Document = options.Document || DefaultDocument
@@ -38,7 +38,7 @@ export default async (url, options = {}) => {
   }
 
   const appCtx = {
-    pages,
+    routes,
   }
 
   const app = (
@@ -52,11 +52,11 @@ export default async (url, options = {}) => {
   // Wait for loadable-components.
   const loadableState = await getLoadableState(app)
 
-  const Page = _.get(pages, getPath(ctx), null)
+  const Route = _.get(routes, getPath(ctx), null)
 
-  // Call getInitialProps of Page if defined.
+  // Call getInitialProps of Route if defined.
   // Fetch initialProps and remember it in ctx.
-  const initialProps = Page ? (await getInitialPropsFromComponent(Page, getPath(ctx))) : {}
+  const initialProps = Route ? (await getInitialPropsFromComponent(Route, getPath(ctx))) : {}
   rememberInitialProps(initialProps, ctx)
 
   const html = renderToString(app)

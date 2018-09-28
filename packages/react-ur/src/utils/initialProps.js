@@ -86,7 +86,7 @@ export const getInitialPropsFromContext = (context) => {
 }
 
 const getScriptContent = (ctx) => {
-  // Retrieve initialProps for page.
+  // Retrieve initialProps for route.
   const initialProps = getAllInitialProps(ctx)
   return `window.${KEY} = ${JSON.stringify(initialProps)};`
 }
