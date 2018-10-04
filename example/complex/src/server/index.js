@@ -52,14 +52,17 @@ if (dev) {
   // Dynamic import modules for development(With no-module-cache).
   // SEE: https://github.com/glenjamin/ultimate-hot-reloading-example/blob/master/server.js
   // Import API
-  require('./api').default(app)
+  app.use((...args) => require('./api').default.routes().apply(null, args))
+  app.use((...args) => require('./api').default.allowedMethods().apply(null, args))
   // Import views
   app.use((...args) => require('./views').default.routes().apply(null, args))
   app.use((...args) => require('./views').default.allowedMethods().apply(null, args))
 } else {
   // Use modules statically otherwise (prod/test).
   // Import API
-  require('./api').default(app)
+  const api = require('./api').default
+  app.use(api.routes())
+  app.use(api.allowedMethods())
   // Import views
   const views = require('./views').default
   app.use(views.routes())
