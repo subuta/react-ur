@@ -2,6 +2,7 @@ import Koa from 'koa'
 import logger from 'koa-logger'
 import koaBody from 'koa-body'
 import serve from 'koa-static'
+import cors from '@koa/cors'
 import clearModule from 'clear-module'
 import path from 'path'
 
@@ -29,6 +30,9 @@ app.use(logger())
 // parse body
 app.use(koaBody())
 
+// Add cors
+app.use(cors())
+
 if (dev) {
   // Server side hot-module-replacement :)
   const watcher = require('sane')(path.resolve(ROOT_DIR, './src'))
@@ -47,10 +51,16 @@ app.use(serve(PUBLIC_DIR))
 if (dev) {
   // Dynamic import modules for development(With no-module-cache).
   // SEE: https://github.com/glenjamin/ultimate-hot-reloading-example/blob/master/server.js
+  // Import API
+  require('./api').default(app)
+  // Import views
   app.use((...args) => require('./views').default.routes().apply(null, args))
   app.use((...args) => require('./views').default.allowedMethods().apply(null, args))
 } else {
   // Use modules statically otherwise (prod/test).
+  // Import API
+  require('./api').default(app)
+  // Import views
   const views = require('./views').default
   app.use(views.routes())
   app.use(views.allowedMethods())

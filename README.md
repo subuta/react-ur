@@ -13,7 +13,7 @@ react-ur makes your Universal React development flow easier with fantastic tools
   - based on [ultimate-hot-reloading-example](https://github.com/glenjamin/ultimate-hot-reloading-example)
 - Do SEO (google) and SMO (twitter, facebook...) for React app.
   - with [react-helmet](https://github.com/nfl/react-helmet)
-- No complex routing logic needed anymore! (Will just render page in the `/pages`)
+- No complex routing logic needed anymore! (Will just render page in the `/routes`)
 - [next.js](https://github.com/zeit/next.js/) inspired `getInitialProps` lifecycle.
 - No brain clutter configuration. Just run these commands for `building bundle, starting dev-server/prod-server`
   - `rur start` -> Start webpack-dev-server and /server script with ES6/ESM feature enabled :heart_eyes:
