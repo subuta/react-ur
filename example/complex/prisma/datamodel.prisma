@@ -2,4 +2,5 @@ type Todo {
   id: ID! @unique
   title: String!
   isDone: Boolean!
+  dueDate: DateTime
 }

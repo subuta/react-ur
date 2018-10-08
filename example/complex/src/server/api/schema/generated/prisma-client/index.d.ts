@@ -106,17 +106,14 @@ export type TodoOrderByInput =
   | "title_DESC"
   | "isDone_ASC"
   | "isDone_DESC"
+  | "dueDate_ASC"
+  | "dueDate_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
-
-export interface TodoCreateInput {
-  title: String;
-  isDone: Boolean;
-}
 
 export interface TodoWhereInput {
   id?: ID_Input;
@@ -149,14 +146,29 @@ export interface TodoWhereInput {
   title_not_ends_with?: String;
   isDone?: Boolean;
   isDone_not?: Boolean;
+  dueDate?: DateTimeInput;
+  dueDate_not?: DateTimeInput;
+  dueDate_in?: DateTimeInput[] | DateTimeInput;
+  dueDate_not_in?: DateTimeInput[] | DateTimeInput;
+  dueDate_lt?: DateTimeInput;
+  dueDate_lte?: DateTimeInput;
+  dueDate_gt?: DateTimeInput;
+  dueDate_gte?: DateTimeInput;
   AND?: TodoWhereInput[] | TodoWhereInput;
   OR?: TodoWhereInput[] | TodoWhereInput;
   NOT?: TodoWhereInput[] | TodoWhereInput;
 }
 
+export interface TodoCreateInput {
+  title: String;
+  isDone: Boolean;
+  dueDate?: DateTimeInput;
+}
+
 export interface TodoUpdateInput {
   title?: String;
   isDone?: Boolean;
+  dueDate?: DateTimeInput;
 }
 
 export interface TodoSubscriptionWhereInput {
@@ -194,24 +206,11 @@ export interface TodoEdgeSubscription
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface BatchPayloadNode {
-  count: Long;
-}
-
-export interface BatchPayload extends Promise<BatchPayloadNode>, Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayloadNode>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
-}
-
 export interface TodoPreviousValuesNode {
   id: ID_Output;
   title: String;
   isDone: Boolean;
+  dueDate?: DateTimeOutput;
 }
 
 export interface TodoPreviousValues
@@ -220,6 +219,7 @@ export interface TodoPreviousValues
   id: () => Promise<ID_Output>;
   title: () => Promise<String>;
   isDone: () => Promise<Boolean>;
+  dueDate: () => Promise<DateTimeOutput>;
 }
 
 export interface TodoPreviousValuesSubscription
@@ -228,72 +228,7 @@ export interface TodoPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   title: () => Promise<AsyncIterator<String>>;
   isDone: () => Promise<AsyncIterator<Boolean>>;
-}
-
-export interface PageInfoNode {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
-}
-
-export interface PageInfo extends Promise<PageInfoNode>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
-}
-
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfoNode>>,
-    Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface TodoSubscriptionPayloadNode {
-  mutation: MutationType;
-  updatedFields?: String[];
-}
-
-export interface TodoSubscriptionPayload
-  extends Promise<TodoSubscriptionPayloadNode>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = Todo>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = TodoPreviousValues>() => T;
-}
-
-export interface TodoSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<TodoSubscriptionPayloadNode>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = TodoSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = TodoPreviousValuesSubscription>() => T;
-}
-
-export interface TodoNode {
-  id: ID_Output;
-  title: String;
-  isDone: Boolean;
-}
-
-export interface Todo extends Promise<TodoNode>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
-  isDone: () => Promise<Boolean>;
-}
-
-export interface TodoSubscription
-  extends Promise<AsyncIterator<TodoNode>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  title: () => Promise<AsyncIterator<String>>;
-  isDone: () => Promise<AsyncIterator<Boolean>>;
+  dueDate: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface TodoConnectionNode {}
@@ -330,12 +265,93 @@ export interface AggregateTodoSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-/*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string;
+export interface PageInfoNode {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
 
-export type Long = string;
+export interface PageInfo extends Promise<PageInfoNode>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfoNode>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface TodoNode {
+  id: ID_Output;
+  title: String;
+  isDone: Boolean;
+  dueDate?: DateTimeOutput;
+}
+
+export interface Todo extends Promise<TodoNode>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  isDone: () => Promise<Boolean>;
+  dueDate: () => Promise<DateTimeOutput>;
+}
+
+export interface TodoSubscription
+  extends Promise<AsyncIterator<TodoNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  title: () => Promise<AsyncIterator<String>>;
+  isDone: () => Promise<AsyncIterator<Boolean>>;
+  dueDate: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface TodoSubscriptionPayloadNode {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface TodoSubscriptionPayload
+  extends Promise<TodoSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Todo>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = TodoPreviousValues>() => T;
+}
+
+export interface TodoSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<TodoSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = TodoSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = TodoPreviousValuesSubscription>() => T;
+}
+
+export interface BatchPayloadNode {
+  count: Long;
+}
+
+export interface BatchPayload extends Promise<BatchPayloadNode>, Fragmentable {
+  count: () => Promise<Long>;
+}
+
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayloadNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Long>>;
+}
+
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
 
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
@@ -344,14 +360,26 @@ export type ID_Input = string | number;
 export type ID_Output = string;
 
 /*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean;
-
-/*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
 */
 export type Int = number;
+
+/*
+DateTime scalar input type, allowing Date
+*/
+export type DateTimeInput = Date | string;
+
+/*
+DateTime scalar output type, which is always a string
+*/
+export type DateTimeOutput = string;
+
+/*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string;
+
+export type Long = string;
 
 /**
  * Type Defs

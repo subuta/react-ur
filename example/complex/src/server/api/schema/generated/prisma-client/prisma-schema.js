@@ -7,6 +7,8 @@ type BatchPayload {
   count: Long!
 }
 
+scalar DateTime
+
 scalar Long
 
 type Mutation {
@@ -50,6 +52,7 @@ type Todo {
   id: ID!
   title: String!
   isDone: Boolean!
+  dueDate: DateTime
 }
 
 type TodoConnection {
@@ -61,6 +64,7 @@ type TodoConnection {
 input TodoCreateInput {
   title: String!
   isDone: Boolean!
+  dueDate: DateTime
 }
 
 type TodoEdge {
@@ -75,6 +79,8 @@ enum TodoOrderByInput {
   title_DESC
   isDone_ASC
   isDone_DESC
+  dueDate_ASC
+  dueDate_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -85,6 +91,7 @@ type TodoPreviousValues {
   id: ID!
   title: String!
   isDone: Boolean!
+  dueDate: DateTime
 }
 
 type TodoSubscriptionPayload {
@@ -108,6 +115,7 @@ input TodoSubscriptionWhereInput {
 input TodoUpdateInput {
   title: String
   isDone: Boolean
+  dueDate: DateTime
 }
 
 input TodoWhereInput {
@@ -141,6 +149,14 @@ input TodoWhereInput {
   title_not_ends_with: String
   isDone: Boolean
   isDone_not: Boolean
+  dueDate: DateTime
+  dueDate_not: DateTime
+  dueDate_in: [DateTime!]
+  dueDate_not_in: [DateTime!]
+  dueDate_lt: DateTime
+  dueDate_lte: DateTime
+  dueDate_gt: DateTime
+  dueDate_gte: DateTime
   AND: [TodoWhereInput!]
   OR: [TodoWhereInput!]
   NOT: [TodoWhereInput!]

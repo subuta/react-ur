@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "NODE_ENV=production rur build",
+    "pdeploy": "cd prisma && prisma deploy",
     "serve": "rur start",
     "lserve": "run-s ulink serve",
     "playground": "cd prisma && graphql playground --port 3001",
@@ -43,6 +44,7 @@
     "koa-static": "^5.0.0",
     "loadable-components": "^2.2.3",
     "lodash": "^4.17.11",
+    "p-min-delay": "^2.0.0",
     "prisma-binding": "^2.1.6",
     "prisma-client-lib": "^1.17.1",
     "react": "^16.5.1",
