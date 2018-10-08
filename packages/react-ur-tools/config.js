@@ -5,7 +5,7 @@ const ROUTES_PATH = './routes'
 
 const ROOT_DIR = path.dirname(findUp.sync('package.json'))
 const SRC_DIR = path.resolve(ROOT_DIR, './src')
-const DIST_DIR = path.resolve(ROOT_DIR, './dist')
+const DIST_DIR = path.resolve(ROOT_DIR, './lib')
 const SERVER_DIR = path.resolve(SRC_DIR, './server')
 const DIST_SERVER_DIR = path.resolve(DIST_DIR, './server')
 const ROUTES_DIR = path.resolve(SRC_DIR, ROUTES_PATH)
