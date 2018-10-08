@@ -52,11 +52,12 @@ export default async (url, options = {}) => {
   // Wait for loadable-components.
   const loadableState = await getLoadableState(app)
 
-  const Route = _.get(routes.findRoute(getPath(ctx), true), 'Component', null)
+  const { route, match } = routes.findRoute(getPath(ctx))
+  const { Component } = route
 
   // Call getInitialProps of Route if defined.
   // Fetch initialProps and remember it in ctx.
-  const initialProps = Route ? (await getInitialPropsFromComponent(Route, getPath(ctx))) : {}
+  const initialProps = Component ? (await getInitialPropsFromComponent(Component, getPath(ctx), { match })) : {}
   rememberInitialProps(initialProps, ctx)
 
   const html = renderToString(app)

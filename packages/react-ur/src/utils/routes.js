@@ -15,6 +15,7 @@ import {
   wrapLoadable,
   renderLoadable
 } from './loadable'
+import { getInitialPropsFromComponent } from './initialProps'
 
 if (isBrowser && module.hot) {
   module.hot.dispose(function () {
@@ -59,24 +60,38 @@ class Routes {
     this.prettyPrint()
   }
 
-  findRoute (_path, returnRoute = false) {
-    let match = null
+  // Pre-fetch loadable component with pre-resolving initialProps.
+  async preload (path) {
+    const { route, match } = this.findRoute(path)
+    if (!match) return
+
+    // fetch component(bundle).
+    const Component = await route.Component.load()
+    // fetch initialProps of component.
+    await getInitialPropsFromComponent(Component, path, { match })
+  }
+
+  findRoute (_path) {
+    let result = {}
     // Try match with all routes and return at first occurrence.
     _.some(this.toArray(), ([path, route]) => {
-      match = matchPath(_path, _.pick(route, ROUTE_PROPS))
+      const match = matchPath(_path, _.pick(route, ROUTE_PROPS))
 
-      if (match && returnRoute) {
-        match = route
+      if (match) {
+        result = {
+          match,
+          route
+        }
       }
 
       return match
     })
-    return match
+    return result
   }
 
   // Find current route by call react-router's matchPath.
   currentRoute () {
-    return this.findRoute(location.pathname)
+    return _.get(this.findRoute(location.pathname), 'match')
   }
 
   // Rename(re-map) path.

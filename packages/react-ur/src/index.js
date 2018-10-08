@@ -10,8 +10,7 @@ import asyncRenderServer from './asyncRenderServer'
 
 import {
   wrapLoadable,
-  renderLoadable,
-  preload
+  renderLoadable
 } from './utils/loadable'
 
 export {
@@ -27,6 +26,5 @@ export {
   asyncRenderServer,
 
   wrapLoadable,
-  renderLoadable,
-  preload
+  renderLoadable
 }

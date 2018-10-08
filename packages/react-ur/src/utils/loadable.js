@@ -2,8 +2,7 @@ import React from 'react'
 import _ from 'lodash'
 
 import {
-  getInitialPropsFromContext,
-  getInitialPropsFromComponent
+  getInitialPropsFromContext
 } from './initialProps'
 
 import asRoute from '../hocs/asRoute'
@@ -22,15 +21,4 @@ export const renderLoadable = ({ Component, loading, error, ownProps }) => {
 
 export const wrapLoadable = (module) => {
   return asRoute(unwrapModule(module))
-}
-
-// Pre-fetch loadable component with pre-resolving initialProps.
-export const preload = async (loadable, path) => {
-  console.debug(`[start] Pre-fetching bundle for ${path}`)
-  // fetch component(bundle).
-  const Component = await loadable.load()
-  // fetch initialProps of component.
-  const initialProps = await getInitialPropsFromComponent(Component, path)
-  console.debug(`[end] Pre-fetching bundle for ${path} initialProps=`, initialProps)
-  return initialProps
 }

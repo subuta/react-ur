@@ -2,7 +2,10 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import { hot } from 'react-hot-loader'
 
+import Boom from 'boom'
+import _ from 'lodash'
 import gql from 'graphql-tag'
+
 import graphQLClient from '../utils/graphQLClient'
 
 const Todo = ({ todo = {} }) => {
@@ -20,7 +23,7 @@ const Todo = ({ todo = {} }) => {
   )
 }
 
-Todo.getInitialProps = async () => {
+Todo.getInitialProps = async ({ match }) => {
   const query = gql`
     query getTodo($id: ID!) {
       todo(where: {
@@ -33,7 +36,13 @@ Todo.getInitialProps = async () => {
     }
   `
 
-  const { todo } = await graphQLClient.request(query, { id: 'cjmvzfbzh000309737elh0ixg' })
+  const id = _.get(match, 'params.id')
+
+  const { todo } = await graphQLClient.request(query, { id })
+
+  if (!todo) {
+    throw Boom.notFound()
+  }
 
   return {
     todo

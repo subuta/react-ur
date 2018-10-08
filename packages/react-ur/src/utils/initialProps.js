@@ -9,13 +9,13 @@ const KEY = '__INITIAL_PROPS__'
 // Pool of promise. key by path.
 let promises = {}
 
-export const getInitialPropsFromComponent = async (Component, path) => {
+export const getInitialPropsFromComponent = async (Component, path, props = {}) => {
   // Set promise for currentPath if not found.
   if (!getPromise(path)) {
     // Use getInitialProps if exists.
     const fn = Component.getInitialProps || (() => Promise.resolve())
     // Remember promise for later use.
-    rememberPromise(fn(), path)
+    rememberPromise(fn(props), path)
   }
 
   const promise = getPromise(path)
