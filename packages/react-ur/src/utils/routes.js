@@ -59,15 +59,24 @@ class Routes {
     this.prettyPrint()
   }
 
-  // Find current route by call react-router's matchPath.
-  currentRoute () {
+  findRoute (_path, returnRoute = false) {
     let match = null
     // Try match with all routes and return at first occurrence.
     _.some(this.toArray(), ([path, route]) => {
-      match = matchPath(location.pathname, _.pick(route, ROUTE_PROPS))
+      match = matchPath(_path, _.pick(route, ROUTE_PROPS))
+
+      if (match && returnRoute) {
+        match = route
+      }
+
       return match
     })
     return match
+  }
+
+  // Find current route by call react-router's matchPath.
+  currentRoute () {
+    return this.findRoute(location.pathname)
   }
 
   // Rename(re-map) path.

@@ -7,7 +7,6 @@ import {
 } from './initialProps'
 
 import asRoute from '../hocs/asRoute'
-
 import unwrapModule from './unwrapModule'
 
 export const renderLoadable = ({ Component, loading, error, ownProps }) => {

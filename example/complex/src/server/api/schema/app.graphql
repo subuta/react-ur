@@ -1,10 +1,2 @@
 # SEE: https://www.prisma.io/docs/data-model-and-migrations/data-model-knul/#a-note-on-the-application-schema
-# import Todo from './generated/prisma.graphql'
-
-type Query {
-    todoes: [Todo!]!
-}
-
-type Mutation {
-    createTodo: [Todo!]!
-}
+# import Query.*, Mutation.*, * from './generated/prisma.graphql'

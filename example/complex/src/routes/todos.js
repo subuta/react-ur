@@ -1,8 +1,12 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { hot } from 'react-hot-loader'
+import _ from 'lodash'
 
-export default hot(module)(() => {
+import gql from 'graphql-tag'
+import graphQLClient from '../utils/graphQLClient'
+
+const Todos = ({ todoes = [] }) => {
   return (
     <>
       <Helmet>
@@ -10,6 +14,34 @@ export default hot(module)(() => {
       </Helmet>
 
       <h1>Todos</h1>
+
+      <ul>
+        {_.map(todoes, (todo) => {
+          return (
+            <li key={todo.id}>{todo.title} - isDone={String(todo.isDone)}</li>
+          )
+        })}
+      </ul>
     </>
   )
-})
+}
+
+Todos.getInitialProps = async () => {
+  const query = gql`
+    query {
+      todoes {
+        id
+        title
+        isDone
+      }
+    }
+  `
+
+  const { todoes } = await graphQLClient.request(query)
+
+  return {
+    todoes
+  }
+}
+
+export default hot(module)(Todos)

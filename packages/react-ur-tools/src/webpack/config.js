@@ -77,10 +77,47 @@ config.module
 // SEE: https://github.com/webpack/docs/wiki/webpack-dev-server
 config.devServer
   .hot(true)
+  .quiet(true)
   .noInfo(true)
   .contentBase(PUBLIC_DIR)
   .proxy({
     '/': `http://localhost:${APP_PORT}`
+  })
+
+// Dev-only setting
+config
+  .when(dev, devConfig => {
+    devConfig
+      .entry('main')
+      .add(`webpack-dev-server/client?http://localhost:${WEBPACK_DEV_SERVER_PORT}/`)
+      .add('webpack/hot/dev-server')
+
+    devConfig
+      .plugin('friendly-errors')
+      .use(FriendlyErrorsWebpackPlugin, [{
+        clearConsole: false,
+        onErrors: function (severity, errors) {
+          console.error('errors = ', errors)
+          // You can listen to errors transformed and prioritized by the plugin
+          // severity can be 'error' or 'warning'
+        }
+      }])
+
+    devConfig
+      .plugin('hot-module-replacement')
+      .use(webpack.HotModuleReplacementPlugin)
+  })
+
+// Analyze-only setting
+config
+  .when(isAnalyze, analyzeConfig => {
+    analyzeConfig
+      .plugin('named-modules')
+      .use(BundleAnalyzerPlugin)
+
+    // Disable some plugins for analyze correctly.
+    analyzeConfig.plugins.delete('hard-source')
+    analyzeConfig.plugins.delete('progress')
   })
 
 // SEE: https://github.com/mzgoddard/hard-source-webpack-plugin/issues/416
@@ -119,37 +156,6 @@ config.optimization
 config.node
   .set('fs', 'empty')
   .set('path', 'empty')
-
-// Dev-only setting
-config
-  .when(dev, devConfig => {
-    devConfig
-      .entry('main')
-      .add(`webpack-dev-server/client?http://localhost:${WEBPACK_DEV_SERVER_PORT}/`)
-      .add('webpack/hot/dev-server')
-
-    devConfig
-      .plugin('friendly-errors')
-      .use(FriendlyErrorsWebpackPlugin, [{
-        clearConsole: false
-      }])
-
-    devConfig
-      .plugin('hot-module-replacement')
-      .use(webpack.HotModuleReplacementPlugin)
-  })
-
-// Analyze-only setting
-config
-  .when(isAnalyze, analyzeConfig => {
-    analyzeConfig
-      .plugin('named-modules')
-      .use(BundleAnalyzerPlugin)
-
-    // Disable some plugins for analyze correctly.
-    analyzeConfig.plugins.delete('hard-source')
-    analyzeConfig.plugins.delete('progress')
-  })
 
 // For debug print.
 // console.log(config.toString())
