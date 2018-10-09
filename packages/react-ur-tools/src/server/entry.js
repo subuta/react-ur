@@ -11,6 +11,8 @@ const {
 require = require('esm')(module)
 require('module-alias/register')
 
+require('dotenv').config()
+
 const dev = process.env.NODE_ENV !== 'production'
 
 const moduleAlias = require('module-alias')

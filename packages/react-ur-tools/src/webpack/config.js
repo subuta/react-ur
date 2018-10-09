@@ -30,7 +30,13 @@ const config = new WebpackChainConfig()
 const isAnalyze = !!process.env.ANALYZE
 const dev = process.env.NODE_ENV !== 'production'
 
-const babelConfig = require('../../babel/browser')()
+let babelConfig = require('../../babel/browser')()
+
+const userConfig = path.resolve(ROOT_DIR, '.babelrc.browser')
+if (fs.existsSync(userConfig)) {
+  console.log(`User defined '.babelrc.browser' found!, will be used as browser babel configuration.`)
+  babelConfig = JSON.parse(fs.readFileSync(userConfig, 'utf8'))
+}
 
 // Interact with entry points
 config

@@ -1,1 +1,1 @@
-module.exports = require('lib/webpack/config.bundle')
+module.exports = require('./lib/webpack/config.bundle.js')

@@ -1,6 +1,6 @@
 {
   "name": "react-ur-tools",
-  "version": "0.1.9",
+  "version": "0.1.11",
   "description": "Tools for react-ur",
   "main": "lib/index.js",
   "bin": {
@@ -37,6 +37,7 @@
     "babel-loader": "^8.0.2",
     "clean-webpack-plugin": "^0.1.19",
     "commander": "^2.18.0",
+    "dotenv": "^6.1.0",
     "error-overlay-webpack-plugin": "^0.1.5",
     "esm": "^3.0.83",
     "find-up": "^3.0.0",

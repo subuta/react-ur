@@ -67,7 +67,7 @@ export default async (url, options = {}) => {
 
   const helmet = Helmet.renderStatic()
 
-  const scripts = (
+  const head = (
     <>
       {helmet.title.toComponent()}
       {helmet.base.toComponent()}
@@ -75,6 +75,7 @@ export default async (url, options = {}) => {
       {helmet.link.toComponent()}
       {helmet.style.toComponent()}
       {helmet.script.toComponent()}
+      {_.get(options, 'head', null)}
     </>
   )
 
@@ -84,10 +85,11 @@ export default async (url, options = {}) => {
   const initialPropsScript = getInitialPropsScriptElement(ctx)
 
   // Script tag for react-loadable.
-  const bodyScripts = (
+  const body = (
     <>
       {loadableStateScript}
       {initialPropsScript}
+      {_.get(options, 'body', null)}
     </>
   )
 
@@ -95,8 +97,8 @@ export default async (url, options = {}) => {
     <Document
       htmlAttributes={helmet.htmlAttributes.toComponent()}
       bodyAttributes={helmet.htmlAttributes.toComponent()}
-      scripts={scripts}
-      bodyScripts={bodyScripts}
+      head={head}
+      body={body}
       main={<div id='app' dangerouslySetInnerHTML={{ __html: html }} />}
     />
   )

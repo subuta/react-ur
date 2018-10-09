@@ -4,9 +4,9 @@ export default (props) => {
   const {
     main,
     htmlAttributes,
-    scripts,
+    head,
     bodyAttributes,
-    bodyScripts
+    body
   } = props
 
   return (
@@ -14,15 +14,12 @@ export default (props) => {
       <head>
         <title>react-ur example</title>
 
-        {scripts}
+        {head}
       </head>
       <body {...bodyAttributes}>
-        <div className='container'>
-          <h3>react-ur example</h3>
-          {main}
-        </div>
+        {main}
 
-        {bodyScripts}
+        {body}
         <script src='/main.bundle.js' />
       </body>
     </html>

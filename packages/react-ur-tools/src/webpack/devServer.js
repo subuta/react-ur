@@ -1,13 +1,22 @@
 import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
-import config from './config'
-
+import fs from 'fs'
+import path from 'path'
 import {
   PUBLIC_DIR,
+  ROOT_DIR,
 
   APP_PORT,
   WEBPACK_DEV_SERVER_PORT
 } from '../../config.js'
+
+let config = require('./config').default
+
+const userConfig = path.resolve(ROOT_DIR, 'webpack.config.js')
+if (fs.existsSync(userConfig)) {
+  console.log(`User defined 'webpack.config.js' found!, will be used as webpack configuration.`)
+  config = require(userConfig)
+}
 
 // Create webpack configuration from webpack-chain instance.
 const compiler = webpack(config)
