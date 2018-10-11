@@ -31,6 +31,7 @@ export default async (url, options = {}) => {
 
   const App = options.App || DefaultApp
   const Document = options.Document || DefaultDocument
+  const onAfterRender = options.onAfterRender || _.noop
 
   // Common context that will shared between modules while rendering.
   const ctx = {
@@ -62,6 +63,9 @@ export default async (url, options = {}) => {
 
   const html = renderToString(app)
 
+  // Call onAfterRender to fetch result.
+  const onAfterRenderResult = onAfterRender()
+
   // Clear remembered promise while render.
   forgetPromise()
 
@@ -69,13 +73,13 @@ export default async (url, options = {}) => {
 
   const head = (
     <>
-      {helmet.title.toComponent()}
+      {_.get(onAfterRenderResult, 'head', null)}
       {helmet.base.toComponent()}
-      {helmet.meta.toComponent()}
       {helmet.link.toComponent()}
-      {helmet.style.toComponent()}
+      {helmet.meta.toComponent()}
       {helmet.script.toComponent()}
-      {_.get(options, 'head', null)}
+      {helmet.style.toComponent()}
+      {helmet.title.toComponent()}
     </>
   )
 
@@ -87,9 +91,9 @@ export default async (url, options = {}) => {
   // Script tag for react-loadable.
   const body = (
     <>
+      {_.get(onAfterRenderResult, 'body', null)}
       {loadableStateScript}
       {initialPropsScript}
-      {_.get(options, 'body', null)}
     </>
   )
 

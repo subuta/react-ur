@@ -8,8 +8,8 @@ import json from 'rollup-plugin-json'
 import pkg from './package.json'
 
 const external = [
-  ...Object.keys(pkg.peerDependencies),
-  ...Object.keys(pkg.dependencies),
+  ...Object.keys(pkg.peerDependencies || {}),
+  ...Object.keys(pkg.dependencies || {}),
   'loadable-components/server',
   'fs',
   'path',

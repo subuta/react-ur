@@ -1,5 +1,4 @@
 import React from 'react' // eslint-disable-line
-import _ from 'lodash'
 
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
