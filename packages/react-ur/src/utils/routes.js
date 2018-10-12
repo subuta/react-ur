@@ -17,6 +17,14 @@ import {
 } from './loadable'
 import { getInitialPropsFromComponent } from './initialProps'
 
+// Remove cached json while development.
+if (dev) {
+  delete require.cache[require.resolve('@app/tmp/routes.json')]
+}
+
+// Retrieve latest routes.json.
+const routesJson = require('@app/tmp/routes.json')
+
 if (isBrowser && module.hot) {
   module.hot.dispose(function () {
     console.log('Force reload browser because routes added or deleted ...')
@@ -29,7 +37,9 @@ if (isBrowser && module.hot) {
 const ROUTE_PROPS = ['path', 'exact']
 
 class Routes {
-  constructor (initialRoutes) {
+  constructor (json) {
+    const initialRoutes = this.parse(json)
+
     const defaultRoute404 = {
       path: '*',
       exact: false,
@@ -45,6 +55,35 @@ class Routes {
 
     // Cast to Map for preserve key order.
     this.routes = new Map(_.toPairs(routes))
+  }
+
+  parse (json) {
+    // Parse routes.json and create Loadable components.
+    return _.transform(json, (result, module) => {
+      const Route = loadable(async () => wrapLoadable(await import(`@app/src/routes/${module}`)), { render: renderLoadable })
+
+      let path = `/${_.toLower(module)}`
+
+      let route = {
+        path,
+        exact: true,
+        module: `src/routes/${module}.js`,
+        Component: setDisplayName(module)(Route)
+      }
+
+      if (path === '/404') {
+        path = '*'
+        route['exact'] = false
+      } else if (path === '/index') {
+        path = '/'
+      }
+
+      // Construct react-router route-like object.
+      result[path] = {
+        ...route,
+        path
+      }
+    }, {})
   }
 
   // Pretty print routes to console(use console.table at Browser if supported.)
@@ -129,41 +168,4 @@ class Routes {
   }
 }
 
-// Parse routes.json and create Loadable components.
-export default () => {
-  // Remove cached json while development.
-  if (dev) {
-    delete require.cache[require.resolve('@app/routes.json')]
-  }
-
-  // Retrieve latest routes.json.
-  const routesJson = require('@app/routes.json')
-
-  const routes = _.transform(routesJson, (result, module) => {
-    const Route = loadable(async () => wrapLoadable(await import(`@app/src/routes/${module}`)), { render: renderLoadable })
-
-    let path = `/${_.toLower(module)}`
-
-    let route = {
-      path,
-      exact: true,
-      module: `src/routes/${module}.js`,
-      Component: setDisplayName(module)(Route)
-    }
-
-    if (path === '/404') {
-      path = '*'
-      route['exact'] = false
-    } else if (path === '/index') {
-      path = '/'
-    }
-
-    // Construct react-router route-like object.
-    result[path] = {
-      ...route,
-      path
-    }
-  }, {})
-
-  return new Routes(routes)
-}
+export default new Routes(routesJson)

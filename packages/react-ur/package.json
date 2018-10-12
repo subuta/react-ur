@@ -1,6 +1,6 @@
 {
   "name": "react-ur",
-  "version": "0.1.12",
+  "version": "0.1.14",
   "description": "Universal react renderer",
   "main": "dist/index.js",
   "scripts": {

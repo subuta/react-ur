@@ -87,7 +87,9 @@ config.devServer
   .noInfo(true)
   .contentBase(PUBLIC_DIR)
   .proxy({
-    '/': `http://localhost:${APP_PORT}`
+    '/': `http://localhost:${APP_PORT}`,
+    // Wait at least 1min for proxyTimeout.
+    proxyTimeout: 1000 * 60
   })
 
 // Dev-only setting

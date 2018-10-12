@@ -42,7 +42,9 @@ const server = new WebpackDevServer(compiler, {
   // Set this if you want to enable gzip compression for assets
 
   proxy: {
-    '**': `http://localhost:${APP_PORT}`
+    '**': `http://localhost:${APP_PORT}`,
+    // Wait at least 1min for proxyTimeout.
+    proxyTimeout: 1000 * 60
   },
   // Set this if you want webpack-dev-server to delegate a single path to an arbitrary server.
   // Use "**" to proxy all paths to the specified server.

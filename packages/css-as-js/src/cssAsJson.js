@@ -3,27 +3,32 @@ import postcss from 'postcss'
 import postcssJs from 'postcss-js'
 import prettyBytes from 'pretty-bytes'
 import debug from 'debug'
+import mkdirp from 'mkdirp'
 
 import fs from 'fs'
+import path from 'path'
 
 import {
-  STYLES_PATH
+  DEFAULT_STYLES_PATH,
+  DEFAULT_TAILWINDJS_PATH,
+  STYLES_JSON_PATH
 } from '../config'
 
 import postcssrc from 'postcss-load-config'
 
 // Log to stdout.
-let log = debug('app:log')
+let log = debug('css-as-js:log')
 log.log = console.log.bind(console)
+
+// Selectors should be ignored for css-in-js.
+const IGNORED_SELECTOR = /(:hover|:active|:focus)/g
 
 const transform = (root) => {
   // Ignore array and non-objects(scalar).
   if (_.isArray(root) || !_.isObject(root)) return root
 
   return _.transform(root, (result, value, key) => {
-    // Ignore non-standard mozila pseudo-class
-    // SEE: https://developer.mozilla.org/en-US/docs/Web/CSS/:-moz-focusring
-    if (key.match(/(?<!:):(?!:)-moz/)) return
+    if (key.match(IGNORED_SELECTOR)) return
 
     // Remove escape or line feed from key.
     key = key.replace ? key.replace(/\\/g, '').replace(/\n/g, ' ') : key
@@ -42,34 +47,69 @@ const transform = (root) => {
   }, {})
 }
 
+const PKG_TAILWIND = 'tailwindcss'
+
+const detectPackage = (css) => {
+  if (_.includes(css, '@tailwind preflight;')) {
+    return PKG_TAILWIND
+  }
+  return ''
+}
+
 const onlyClassSelector = (value, key) => _.startsWith(key, '.')
 
-module.exports = async () => {
-  log('[start] css-as-json')
-
-  if (!fs.existsSync(STYLES_PATH)) {
-    throw new Error(`'styles.css' not found. must be located at '${STYLES_PATH}'`)
+const ensureExists = (path) => {
+  if (!fs.existsSync(path)) {
+    throw new Error(`File not found. must be placed at '${path}'`)
   }
+}
 
-  const stylesCss = fs.readFileSync(STYLES_PATH, 'utf8')
+module.exports = async (paths = {}) => {
+  log('[start]')
+
+  const stylesPath = paths.stylesPath || DEFAULT_STYLES_PATH
+  const tailwindJsPath = paths.tailwindJsPath || DEFAULT_TAILWINDJS_PATH
+
+  ensureExists(stylesPath)
+
+  const rawCss = fs.readFileSync(stylesPath, 'utf8')
+
+  const pkg = detectPackage(rawCss)
+
+  log(`[progress] detect package done. pkg=${pkg}`)
 
   const { plugins, options } = await postcssrc()
-  const css = await postcss(plugins).process(stylesCss, options)
+  const result = await postcss(plugins).process(rawCss, { ...options, from: undefined })
 
-  const root = postcssJs.objectify(postcss.parse(css))
+  log('[progress] read css done.')
 
-  const rules = _.omitBy(root, onlyClassSelector)
+  const root = postcssJs.objectify(postcss.parse(result))
+
+  log('[progress] objectify css done.')
+
   const classes = _.pickBy(root, onlyClassSelector)
 
-  const ruleCss = (await postcss().process(rules, { parser: postcssJs })).css
-
   // Prettify and write styles as JSON.
-  const stylesJson = JSON.stringify({
-    ruleCss: ruleCss,
+  let obj = {
+    css: result.css,
     classes: transform(classes)
-  }, null, 2)
+  }
 
-  fs.writeFileSync('./styles.json', stylesJson, { encoding: 'utf8' })
+  if (pkg === PKG_TAILWIND) {
+    ensureExists(tailwindJsPath)
+    const { screens } = require(tailwindJsPath)
+    obj.options = {
+      screens: transform(screens)
+    }
+  }
 
-  log(`[end] css-as-json. '${prettyBytes(stylesJson.length)}' written.`)
+  const json = JSON.stringify(obj, null, 2)
+
+  // Crete directory if needed.
+  mkdirp.sync(path.dirname(STYLES_JSON_PATH))
+
+  // Then write to file.
+  fs.writeFileSync(STYLES_JSON_PATH, json, { encoding: 'utf8' })
+
+  log(`[end]'${prettyBytes(json.length)}' written.`)
 }

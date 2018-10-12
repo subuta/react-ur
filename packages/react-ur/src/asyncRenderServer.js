@@ -19,7 +19,7 @@ import {
 } from './utils/initialProps'
 
 import getPath from './utils/getPath'
-import getRoutes from './utils/routes'
+import routes from './utils/routes'
 
 import DefaultApp from './components/App'
 import DefaultDocument from './components/Document'
@@ -27,7 +27,6 @@ import DefaultDocument from './components/Document'
 import Context from './components/Context'
 
 export default async (url, options = {}) => {
-  const routes = getRoutes()
 
   const App = options.App || DefaultApp
   const Document = options.Document || DefaultDocument

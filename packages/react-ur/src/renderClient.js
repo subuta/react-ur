@@ -8,10 +8,8 @@ import DefaultApp from './components/App'
 
 import Context from './components/Context'
 
-import getRoutes from './utils/routes'
+import routes from './utils/routes'
 import { dev, isBrowser } from './utils/env'
-
-const routes = getRoutes()
 
 if (dev && isBrowser) {
   // Add debug tools.

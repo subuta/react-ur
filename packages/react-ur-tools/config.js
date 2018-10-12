@@ -20,7 +20,7 @@ const LIB_NODE_MODULES_DIR = path.resolve(LIB_ROOT_DIR, './node_modules')
 const APP_PORT = parseInt(process.env.PORT, 10) || 3000
 const WEBPACK_DEV_SERVER_PORT = parseInt(process.env.WEBPACK_DEV_SERVER_PORT, 10) || 8080
 
-const ROUTES_JSON_PATH = path.resolve(ROOT_DIR, 'routes.json')
+const ROUTES_JSON_PATH = path.resolve(ROOT_DIR, './tmp/routes.json')
 
 module.exports = {
   ROOT_DIR,

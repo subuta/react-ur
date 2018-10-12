@@ -28,4 +28,9 @@ if (dev) {
   require('@babel/register')
 }
 
+const generateRoutesJson = require('../generateRoutesJson').default
+
+// Start routes json watcher.
+generateRoutesJson(true)
+
 require(dev ? SERVER_DIR : DIST_SERVER_DIR)
