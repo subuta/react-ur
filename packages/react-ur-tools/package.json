@@ -1,6 +1,6 @@
 {
   "name": "react-ur-tools",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "Tools for react-ur",
   "main": "lib/index.js",
   "bin": {

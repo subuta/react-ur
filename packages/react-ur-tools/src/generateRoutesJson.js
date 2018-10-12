@@ -22,7 +22,13 @@ export default (watch = false) => {
     let files = _.map(glob.sync('**/*.js', {
       cwd: ROUTES_DIR,
       ignore: ['**/_*.js', '**/index.js']
-    }), (file) => path.basename(file, '.js'))
+    }), (file) => {
+      const dir = path.dirname(file)
+      const base = path.basename(file, '.js')
+
+      if (dir === '.') return base
+      return `${dir}/${base}`
+    })
 
     // Check for index(/) route.
     if (fs.existsSync(path.resolve(ROUTES_DIR, './index.js'))) {
