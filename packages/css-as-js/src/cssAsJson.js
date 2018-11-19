@@ -79,6 +79,7 @@ module.exports = async (paths = {}) => {
   log(`[progress] detect package done. pkg=${pkg}`)
 
   const { plugins, options } = await postcssrc()
+  log(`[progress] used plugins = ${_.map(plugins, 'postcssPlugin').join(', ')}`)
   const result = await postcss(plugins).process(rawCss, { ...options, from: undefined })
 
   log('[progress] read css done.')
