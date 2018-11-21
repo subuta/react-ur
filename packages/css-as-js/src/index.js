@@ -7,7 +7,12 @@ if (dev) {
   delete require.cache[require.resolve('@app/tmp/styles.json')]
 }
 
-const json = require('@app/tmp/styles.json')
+let json = {}
+
+// Skip load styles.json at testing.
+if (process.env.NODE_ENV !== 'test') {
+  json = require('@app/tmp/styles.json')
+}
 
 // State variants.
 const VARIANTS = [
