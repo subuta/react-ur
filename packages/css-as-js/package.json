@@ -1,6 +1,6 @@
 {
   "name": "css-as-js",
-  "version": "0.1.8",
+  "version": "0.1.10",
   "description": "Extract styles.css as JavaScript object literal.",
   "main": "lib/index.js",
   "bin": {

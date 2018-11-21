@@ -1,16 +1,18 @@
 import _ from 'lodash'
 
 const dev = process.env.NODE_ENV !== 'production'
-
-// Remove cached json while development.
-if (dev) {
-  delete require.cache[require.resolve('@app/tmp/styles.json')]
-}
+const testing = process.env.NODE_ENV === 'test'
 
 let json = {}
 
+// Remove cached json while development.
+if (dev && !testing) {
+  delete require.cache[require.resolve('@app/tmp/styles.json')]
+}
+
+// FIXME: Find correct way to resolve module-alias of modules inside node_modules.
 // Skip load styles.json at testing.
-if (process.env.NODE_ENV !== 'test') {
+if (!testing) {
   json = require('@app/tmp/styles.json')
 }
 
